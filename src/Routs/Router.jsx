@@ -6,6 +6,7 @@ import About from "../Pages/About";
 import Contact from "../Pages/Contact";
 import Login from "../Componets/Login";
 import Register from "../Componets/Register";
+import Covarage from "../Pages/Covarage";
 
 export const router= createBrowserRouter([
   {
@@ -27,6 +28,11 @@ export const router= createBrowserRouter([
     {
       path:'/contact',
       element:<Contact></Contact>
+    },
+    {
+      path:'/covarage',
+      element:<Covarage></Covarage>,
+      loader: () => fetch('/service.json').then((res) => res.json()),
     },
     {
       path:'/login',

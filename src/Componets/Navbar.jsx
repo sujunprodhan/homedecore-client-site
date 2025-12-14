@@ -29,6 +29,9 @@ const Navbar = () => {
           <Link className="hover:text-[#E92C8F]" to="/contact">
             Contact
           </Link>
+          <Link className="hover:text-[#E92C8F]" to="/covarage">
+            Covarage
+          </Link>
           <Link className="hover:text-[#E92C8F]" to="/login">
             Log in
           </Link>
