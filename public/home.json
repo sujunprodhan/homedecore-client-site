@@ -1,0 +1,137 @@
+[
+  {
+    "title": "Sunny Apartment",
+    "category": "Apartment",
+    "price": 120000,
+    "location": "Downtown, New York",
+    "image": "https://i.ibb.co.com/1JQyNjKF/porject-image-1.jpg",
+    "author": "John Doe",
+    "createdAt": "2025-11-01T10:30:00Z"
+  },
+  {
+    "title": "Cozy Cottage",
+    "category": "House",
+    "price": 95000,
+    "location": "Greenwood, Boston",
+    "image": "https://i.ibb.co.com/bSTtLc3/porject-image-2.jpg",
+    "author": "Jane Smith",
+    "createdAt": "2025-11-02T11:15:00Z"
+  },
+  {
+    "title": "Luxury Villa",
+    "category": "Villa",
+    "price": 450000,
+    "location": "Beverly Hills, California",
+    "image": "https://i.ibb.co.com/0RCVV6WQ/porject-image-3.jpg",
+    "author": "Alice Johnson",
+    "createdAt": "2025-11-03T09:20:00Z"
+  },
+  {
+    "title": "Modern Loft",
+    "category": "Apartment",
+    "price": 180000,
+    "location": "Manhattan, New York",
+    "image": "https://i.ibb.co.com/7xm0vGD2/porject-image-4.jpg",
+    "author": "Michael Brown",
+    "createdAt": "2025-11-04T08:45:00Z"
+  },
+  {
+    "title": "Beachfront Bungalow",
+    "category": "House",
+    "price": 250000,
+    "location": "Miami, Florida",
+    "image": "https://i.ibb.co.com/SDtt0vv7/porject-image-5.jpg",
+    "author": "Emma Wilson",
+    "createdAt": "2025-11-05T12:00:00Z"
+  },
+  {
+    "title": "Suburban Home",
+    "category": "House",
+    "price": 130000,
+    "location": "Plano, Texas",
+    "image": "https://i.ibb.co.com/HcHZQSC/porject-image-6.jpg",
+    "author": "Oliver Taylor",
+    "createdAt": "2025-11-06T14:10:00Z"
+  },
+  {
+    "title": "Downtown Studio",
+    "category": "Studio",
+    "price": 85000,
+    "location": "Chicago, Illinois",
+    "image": "https://i.ibb.co.com/9Hq7K2pr/porject-image-7.jpg",
+    "author": "Sophia Martinez",
+    "createdAt": "2025-11-07T16:25:00Z"
+  },
+  {
+    "title": "Mountain Cabin",
+    "category": "Cabin",
+    "price": 90000,
+    "location": "Aspen, Colorado",
+    "image": "https://i.ibb.co.com/YTK9cMWF/porject-image-8.jpg",
+    "author": "Liam Anderson",
+    "createdAt": "2025-11-08T09:10:00Z"
+  },
+  {
+    "title": "Urban Penthouse",
+    "category": "Penthouse",
+    "price": 500000,
+    "location": "San Francisco, California",
+    "image": "https://i.ibb.co.com/jvFMb4pw/porject-image-9.jpg",
+    "author": "Mia Thomas",
+    "createdAt": "2025-11-09T13:00:00Z"
+  },
+  {
+    "title": "Country Farmhouse",
+    "category": "Farmhouse",
+    "price": 150000,
+    "location": "Nashville, Tennessee",
+    "image": "https://i.ibb.co.com/33xb487/porject-image-10.jpg",
+    "author": "Ethan Lee",
+    "createdAt": "2025-11-10T07:30:00Z"
+  },
+  {
+    "title": "Lakeview Apartment",
+    "category": "Apartment",
+    "price": 140000,
+    "location": "Seattle, Washington",
+    "image": "https://i.ibb.co.com/TMPRYcgT/porject-image-11.jpg",
+    "author": "Ava Harris",
+    "createdAt": "2025-11-11T10:45:00Z"
+  },
+  {
+    "title": "Historic Mansion",
+    "category": "Mansion",
+    "price": 750000,
+    "location": "Savannah, Georgia",
+    "image": "https://i.ibb.co.com/vxPz7nFM/porject-image-12.jpg",
+    "author": "Noah Clark",
+    "createdAt": "2025-11-12T15:00:00Z"
+  },
+  {
+    "title": "City Townhouse",
+    "category": "Townhouse",
+    "price": 200000,
+    "location": "Austin, Texas",
+    "image": "https://i.ibb.co.com/YBmv1nwP/porject-image-13.jpg",
+    "author": "Isabella Lewis",
+    "createdAt": "2025-11-13T09:45:00Z"
+  },
+  {
+    "title": "Coastal Villa",
+    "category": "Villa",
+    "price": 380000,
+    "location": "Santa Barbara, California",
+    "image": "https://i.ibb.co.com/vCvhdZBF/porject-image-14.jpg",
+    "author": "James Walker",
+    "createdAt": "2025-11-13T11:20:00Z"
+  },
+  {
+    "title": "Eco-friendly House",
+    "category": "House",
+    "price": 175000,
+    "location": "Portland, Oregon",
+    "image": "https://i.ibb.co.com/C5whj4R1/porject-image-15.jpg",
+    "author": "Charlotte Hall",
+    "createdAt": "2025-11-13T13:30:00Z"
+  }
+]
