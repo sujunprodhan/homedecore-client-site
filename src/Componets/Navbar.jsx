@@ -47,6 +47,7 @@ const Navbar = () => {
           <Link to="/contact">Contact</Link>
           <Link to="/property">All Property</Link>
           <Link to="/bookingpage">Booking Now</Link>
+          <Link to="/mybooking">My Booking</Link>
         </div>
 
         {/* Right Side */}

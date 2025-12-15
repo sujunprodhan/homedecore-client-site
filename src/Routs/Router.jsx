@@ -10,6 +10,7 @@ import Covarage from "../Pages/Covarage";
 import Property from "../HomeDecore/Property";
 import BookingPage from "../Pages/BookingPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import MyBooking from "../Pages/MyBooking";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,12 @@ export const router = createBrowserRouter([
             <BookingPage></BookingPage>
           </PrivateRoute>
         ),
+      },
+      {
+        path:'mybooking',
+        element:<PrivateRoute>
+          <MyBooking></MyBooking>
+        </PrivateRoute>
       },
       {
         path: '/services',

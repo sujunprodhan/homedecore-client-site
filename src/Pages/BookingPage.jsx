@@ -29,6 +29,7 @@ const BookingPage = () => {
               <label className="block mb-1 font-medium">Full Name</label>
               <input
                 {...register('name', { required: 'Name is required' })}
+                readOnly
                 defaultValue={user?.displayName || ''}
                 className="w-full px-4 py-3 border rounded-lg"
                 placeholder="Your name"
@@ -41,6 +42,7 @@ const BookingPage = () => {
               <label className="block mb-1 font-medium">Email</label>
               <input
                 {...register('email', { required: 'Email is required' })}
+                readOnly
                 defaultValue={user?.email || ''}
                 className="w-full px-4 py-3 border rounded-lg"
                 placeholder="Your email"
