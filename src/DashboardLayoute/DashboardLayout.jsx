@@ -9,13 +9,13 @@ const DashboardLayout = () => {
 
         <nav className="space-y-3">
           {/* User Routes */}
-          <NavLink to="/dashboard/my-bookings" className="block">
+          <NavLink to="/dashboard/my-booking" className="block">
             My Bookings
           </NavLink>
 
           {/* Admin Routes */}
           <NavLink to="/dashboard/admin-bookings" className="block">
-            Manage Bookings
+            Admin Booking
           </NavLink>
         </nav>
       </aside>

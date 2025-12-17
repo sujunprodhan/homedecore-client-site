@@ -7,7 +7,6 @@ import Contact from "../Pages/Contact";
 import Login from "../Componets/Login";
 import Register from "../Componets/Register";
 import Covarage from "../Pages/Covarage";
-import BookingPage from "../Pages/BookingPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MyBooking from "../Pages/MyBooking";
 import ServiceDetails from "../Pages/ServiceDetails";
@@ -38,7 +37,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/servicedetails/:id',
-        element: <ServiceDetails></ServiceDetails>,
+        element: (
+          <PrivateRoute>
+            <ServiceDetails></ServiceDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) => fetch(`http://localhost:3000/homeservice/${params.id}`),
       },
       {
@@ -62,6 +65,7 @@ export const router = createBrowserRouter([
         path: '/register',
         element: <Register></Register>,
       },
+
       {
         path: '/dashboard',
         element: (
@@ -72,16 +76,15 @@ export const router = createBrowserRouter([
         children: [
           {
             path: 'bookingpage',
+            element: <PrivateRoute></PrivateRoute>,
+          },
+          {
+            path: 'my-booking',
             element: (
               <PrivateRoute>
-                <BookingPage></BookingPage>
+                <MyBooking />
               </PrivateRoute>
             ),
-          },
-
-          {
-            path: 'my-bookings',
-            element: <MyBooking />,
           },
           {
             path: 'admin-bookings',

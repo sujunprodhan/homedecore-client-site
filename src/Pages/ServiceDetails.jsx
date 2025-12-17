@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../Hooks/useAuth';
 
@@ -7,6 +7,7 @@ const ServiceDetails = () => {
   const service = useLoaderData(); 
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -19,30 +20,45 @@ const ServiceDetails = () => {
     return <p className="text-center mt-20 text-red-500 text-xl">Service not found</p>;
   }
 
-  const onSubmit = (data) => {
-    const bookingInfo = {
-      serviceName: service?.name || '',
-      serviceImage: service?.image || '',
-      serviceType: service?.serviceType || '',
-      price: service?.price || 0,
-      userName: user?.displayName || '',
-      email: user?.email || '',
-      bookingDate: data.date,
-      location: data.location,
-    };
-
-    console.log('Booking Data:', bookingInfo);
-    alert('Booking submitted successfully!');
-    setOpen(false);
-    reset();
+const onSubmit = async (data) => {
+  const bookingInfo = {
+    serviceName: service?.name || '',
+    serviceImage: service?.image || '',
+    serviceType: service?.serviceType || '',
+    price: service?.price || 0,
+    userName: user?.displayName || '',
+    email: user?.email || '',
+    bookingDate: data.date,
+    location: data.location,
   };
 
+  try {
+    const res = await fetch('http://localhost:3000/bookings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(bookingInfo),
+    });
+
+    const result = await res.json();
+
+    if (result.insertedId) {
+      alert('Booking confirmed!');
+      setOpen(false);
+      reset();
+      navigate('/dashboard/my-booking')
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Booking failed');
+  }
+};
   return (
     <div className="w-11/12 mx-auto py-10">
       {/* Service Image */}
       <img
         src={service?.image || '/placeholder.png'}
-        alt={service?.name || 'Service'}
         className="w-full h-[420px] object-cover rounded-xl"
       />
 

@@ -45,9 +45,7 @@ const Navbar = () => {
           <Link to="/services">Services</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/bookingpage">Booking Now</Link>
-          <Link to="/dashboardlayout">Dashboard</Link>
-          <Link to="/mybooking">My Booking</Link>
+          <Link to="/dashboard/my-booking">My Booking</Link>
         </div>
 
         {/* Right Side */}
@@ -106,7 +104,6 @@ const Navbar = () => {
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/bookingpage">Booking Now</Link>
-          <Link to="/dashboardlayout">Dashboard</Link>
 
           <hr />
 

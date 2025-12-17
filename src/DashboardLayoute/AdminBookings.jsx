@@ -6,7 +6,7 @@ const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axiosSecure.get('/admin/bookings').then((res) => setBookings(res.data));
+    axiosSecure.get('/dashboard/admin/bookings').then((res) => setBookings(res.data));
   }, []);
 
   const updateStatus = (id, status) => {

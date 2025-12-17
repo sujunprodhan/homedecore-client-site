@@ -1,47 +1,134 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useAuth from '../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const MyBooking = () => {
-  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [bookings, setBookings] = useState([]);
+  const axiosSecure = useAxiosSecure();
 
-  useEffect(() => {
-    axiosSecure.get(`/bookings?email=${user?.email}`).then((res) => setBookings(res.data));
-  }, [axiosSecure, user]);
+  // Fetch bookings for the logged-in user
+  const {
+    data: bookings = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ['mybookings', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/bookings?email=${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
 
-  const cancelBooking = async (id) => {
-    await axiosSecure.patch(`/bookings/cancel/${id}`);
-    setBookings(bookings.map((b) => (b._id === id ? { ...b, status: 'cancelled' } : b)));
+  // Cancel booking
+  const handleCancel = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this booking!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, cancel it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/bookings/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire('Cancelled!', 'Booking cancelled successfully.', 'success');
+          }
+        });
+      }
+    });
   };
+
+  // Handle payment
+  const handlePay = (id) => {
+    Swal.fire({
+      title: 'Proceed to Payment?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, pay now',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#28a745',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post(`/bookings/pay/${id}`).then((res) => {
+          if (res.data.success) {
+            refetch();
+            Swal.fire('Paid!', 'Booking payment successful.', 'success');
+          } else {
+            Swal.fire('Error', res.data.message, 'error');
+          }
+        });
+      }
+    });
+  };
+
+  if (isLoading) {
+    return <p className="text-center mt-10">Loading your bookings...</p>;
+  }
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      <h1 className="text-2xl font-bold text-center mb-6">My Bookings</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">My Confirmed Bookings</h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {bookings.map((b) => (
-          <div key={b._id} className="border p-4 rounded shadow">
-            <h3 className="text-xl font-semibold">{b.serviceName}</h3>
-            <p>📅 {b.bookingDate}</p>
-            <p>📍 {b.location}</p>
-            <p className="font-bold">৳ {b.price}</p>
-            <p>
-              Status: <b>{b.status}</b>
-            </p>
-
-            {b.status === 'pending' && (
-              <button
-                onClick={() => cancelBooking(b._id)}
-                className="mt-3 w-full bg-red-500 text-white py-2 rounded"
-              >
-                Cancel Booking
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
+      {bookings.length === 0 ? (
+        <p className="text-center text-gray-500">No bookings found</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Service Name</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking, index) => (
+                <tr key={booking._id}>
+                  <th>{index + 1}</th>
+                  <td>{booking.serviceName}</td>
+                  <td>{booking.serviceType}</td>
+                  <td>{booking.bookingDate}</td>
+                  <td>{booking.location}</td>
+                  <td>৳ {booking.price}</td>
+                  <td>
+                    {booking.status === 'Paid' ? (
+                      <span className="badge badge-success">Paid</span>
+                    ) : (
+                      booking.status || 'Pending'
+                    )}
+                  </td>
+                  <td className="flex gap-2">
+                    {booking.status !== 'Paid' && (
+                      <button
+                        onClick={() => handlePay(booking._id)}
+                        className="btn btn-success btn-xs"
+                      >
+                        Pay
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleCancel(booking._id)}
+                      className="btn btn-error btn-xs"
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
