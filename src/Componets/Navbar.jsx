@@ -45,8 +45,8 @@ const Navbar = () => {
           <Link to="/services">Services</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/property">All Property</Link>
           <Link to="/bookingpage">Booking Now</Link>
+          <Link to="/dashboardlayout">Dashboard</Link>
           <Link to="/mybooking">My Booking</Link>
         </div>
 
@@ -105,18 +105,15 @@ const Navbar = () => {
           <Link to="/services">Services</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/property">All Property</Link>
           <Link to="/bookingpage">Booking Now</Link>
+          <Link to="/dashboardlayout">Dashboard</Link>
 
           <hr />
 
           {user ? (
             <>
               <div className="flex items-center gap-3">
-                <img
-                  src={user.photoURL}
-                  className="w-10 h-10 rounded-full"
-                />
+                <img src={user.photoURL} className="w-10 h-10 rounded-full" />
                 <div>
                   <p className="font-semibold">{user.displayName}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>

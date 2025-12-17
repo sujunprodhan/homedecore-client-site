@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Interior Design Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 2500,
+    "duration": "60 Minutes",
+    "mode": "Online / On-site",
+    "image": "https://i.ibb.co.com/1JQyNjKF/porject-image-1.jpg",
+    "description": "Professional interior design consultation to plan layout, color palette, furniture selection, and overall home styling.",
+    "features": ["Space planning", "Color & lighting guidance", "Furniture & decor suggestions"]
+  },
+  {
+    "name": "Living Room Decor Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 1800,
+    "duration": "45 Minutes",
+    "mode": "Online",
+    "image": "https://i.ibb.co.com/bSTtLc3/porject-image-2.jpg",
+    "description": "Expert consultation to enhance living room aesthetics with modern and functional decor ideas.",
+    "features": ["Sofa & layout advice", "Wall decor planning", "Lighting recommendations"]
+  },
+  {
+    "name": "Bedroom Decor Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 2000,
+    "duration": "45 Minutes",
+    "mode": "Online / On-site",
+    "image": "https://i.ibb.co.com/0RCVV6WQ/porject-image-3.jpg",
+    "description": "Personalized bedroom decor consultation for comfort, style, and better space utilization.",
+    "features": ["Bed placement guidance", "Color theme selection", "Storage & wardrobe planning"]
+  },
+  {
+    "name": "Kitchen Interior Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 3000,
+    "duration": "60 Minutes",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/7xm0vGD2/porject-image-4.jpg",
+    "description": "Professional kitchen interior consultation focusing on layout efficiency, storage solutions, and modern finishes.",
+    "features": [
+      "Cabinet layout planning",
+      "Material & color guidance",
+      "Lighting & ventilation advice"
+    ]
+  },
+  {
+    "name": "Full Home Decor Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 8000,
+    "duration": "2–3 Hours",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/SDtt0vv7/porject-image-5.jpg",
+    "description": "Complete home decor consultation covering all rooms with a cohesive design approach.",
+    "features": [
+      "Overall theme planning",
+      "Room-by-room guidance",
+      "Budget-friendly decor solutions"
+    ]
+  }
+]

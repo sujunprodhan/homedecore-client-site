@@ -45,14 +45,7 @@ const Register = () => {
         .catch(error=>console.log(error)
         )
       });
-
-      // // Update profile
-      // updateUserProfile(userProfile);
-      // // await updateUserProfile(result.user, {
-      // //   displayName: data.name,
-      // //   photoURL: imageUrl,
-      // // });
-
+      
       toast.success('Registration successful! Please login.');
       navigate('/login');
     } catch (error) {
