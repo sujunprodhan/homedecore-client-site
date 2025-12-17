@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useAuth from '../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyBooking = () => {
   const { user } = useAuth();
@@ -109,13 +110,14 @@ const MyBooking = () => {
                   </td>
                   <td className="flex gap-2">
                     {booking.status !== 'Paid' && (
-                      <button
-                        onClick={() => handlePay(booking._id)}
+                      <Link onClick={handlePay}
+                        to={`/dashboard/payment/${booking._id}`}
                         className="btn btn-success btn-xs"
                       >
                         Pay
-                      </button>
+                      </Link>
                     )}
+
                     <button
                       onClick={() => handleCancel(booking._id)}
                       className="btn btn-error btn-xs"

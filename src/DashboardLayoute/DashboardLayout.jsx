@@ -17,6 +17,13 @@ const DashboardLayout = () => {
           <NavLink to="/dashboard/admin-bookings" className="block">
             Admin Booking
           </NavLink>
+          {/* Admin Routes */}
+          <NavLink to="/dashboard/payment-history" className="block">
+            Payment History
+          </NavLink>
+          <NavLink to="/dashboard/payment-success" className="block">
+            Payment Success
+          </NavLink>
         </nav>
       </aside>
 

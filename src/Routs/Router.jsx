@@ -13,6 +13,10 @@ import ServiceDetails from "../Pages/ServiceDetails";
 import DashboardLayout from "../DashboardLayoute/DashboardLayout";
 import AdminRoute from "./AdminRoute";
 import AdminBookings from "../Pages/AdminBookings";
+import Payment from "../DashboardLayoute/Payment";
+import PaymentSuccess from "../DashboardLayoute/PaymentSuccess";
+import PyamentCancel from "../DashboardLayoute/PyamentCancel";
+import PaymentHistory from "../DashboardLayoute/PaymentHistory/PaymentHistory";
 
 // import DashboardLayout from '../layouts/DashboardLayout';
 // import MyBooking from '../pages/MyBooking';
@@ -80,11 +84,23 @@ export const router = createBrowserRouter([
           },
           {
             path: 'my-booking',
-            element: (
-              <PrivateRoute>
-                <MyBooking />
-              </PrivateRoute>
-            ),
+            element: <MyBooking />,
+          },
+          {
+            path: 'payment/:bookingId',
+            element: <Payment />,
+          },
+          {
+            path: 'payment-success',
+            element: <PaymentSuccess></PaymentSuccess>,
+          },
+          {
+            path: 'payment-cancel',
+            element: <PyamentCancel></PyamentCancel>,
+          },
+          {
+            path: 'payment-history',
+            element: <PaymentHistory></PaymentHistory>,
           },
           {
             path: 'admin-bookings',
