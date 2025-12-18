@@ -17,53 +17,65 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = async (data) => {
-    const profileImage = data.image?.[0];
+ const handleRegister = async (data) => {
+   const profileImage = data.image?.[0];
 
-    try {
-      // create user
-      const result = await createUser(data.email, data.password);
-      console.log(result.user);
+   try {
+     // 1️⃣ Firebase user create
+     const result = await createUser(data.email, data.password);
+     const user = result.user;
 
-      // upload image to imgbb
-      const formData = new FormData();
-      formData.append('image', profileImage);
-      const image_Api_URL = `https://api.imgbb.com/1/upload?key=${
-        import.meta.env.VITE_image_host_API
-      }`;
-      axios.post(image_Api_URL, formData)
-      .then(res=>{
-        console.log('after image', res.url);
-        const userProfile= {
-          displayName:data.name,
-          photoURL: res.data.data.url}
-        updateUserProfile (userProfile)
-        .then(()=>{
-          console.log('user profile updated done');
-          
-        })
-        .catch(error=>console.log(error)
-        )
-      });
-      
-      toast.success('Registration successful! Please login.');
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-  };
+     // 2️⃣ Upload image to imgbb
+     const formData = new FormData();
+     formData.append('image', profileImage);
+
+     const imageApi = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_API}`;
+
+     const imageRes = await axios.post(imageApi, formData);
+     const photoURL = imageRes.data.data.url;
+
+     await updateUserProfile({
+       displayName: data.name,
+       photoURL,
+     });
+     const userInfo = {
+       name: data.name,
+       email: data.email,
+       photoURL,
+     };
+
+     await axios.post('http://localhost:3000/users', userInfo);
+
+     toast.success('Registration successful!');
+     navigate('/login');
+   } catch (error) {
+     console.error(error);
+     toast.error(error.message);
+   }
+ };
+
 
   const handleSignInGoogle = async () => {
     try {
       const result = await signInGoogle();
-      toast.success('Logged in with Google!', result);
+      const user = result.user;
+
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+      };
+
+      await axios.post('http://localhost:3000/users', userInfo);
+
+      toast.success('Logged in with Google!');
       navigate('/');
     } catch (error) {
       console.log(error);
       toast.error(error.message);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

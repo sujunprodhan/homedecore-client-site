@@ -1,23 +1,39 @@
-import { useEffect } from 'react';
-import useAxiosSecure from '../Hooks/useAxiosSecure';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const PaymentSuccess = () => {
-  const [params] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const [paymentInfo, setPaymentInfo] = useState({});
+  const sessionId = searchParams.get('session_id');
   const axiosSecure = useAxiosSecure();
 
-  const sessionId = params.get('session_id');
-
   useEffect(() => {
-
-    console.log('Stripe session:', sessionId);
-  }, [sessionId]);
+    if (sessionId) {
+      axiosSecure
+        .patch(`/payment-success?session_id=${sessionId}`)
+        .then((res) => {
+          setPaymentInfo(res.data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [sessionId, axiosSecure]);
 
   return (
-    <div className="text-center mt-20">
-      <h1 className="text-3xl font-bold text-green-600">Payment Successful 🎉</h1>
-      <p className="mt-4">Thank you for your payment.</p>
+    <div className="max-w-md mx-auto mt-10 p-6 border rounded shadow-md text-center">
+      <h1 className="text-2xl font-bold mb-4">Payment Successful!</h1>
+      {paymentInfo.success ? (
+        <>
+          <p>
+            <strong>Transaction ID:</strong> {paymentInfo.transactionId}
+          </p>
+          <p>
+            <strong>Tracking ID:</strong> {paymentInfo.trackingId}
+          </p>
+        </>
+      ) : (
+        <p>Payment failed or already processed.</p>
+      )}
     </div>
   );
 };

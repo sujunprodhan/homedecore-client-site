@@ -12,6 +12,7 @@ const Payment = () => {
       const res = await axiosSecure.get(`/booking/${bookingId}`);
       return res.data;
     },
+    enabled: !!bookingId,
   });
 
   const handlePayment = async () => {
@@ -26,16 +27,14 @@ const Payment = () => {
 
     try {
       const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
-      window.location.replace(res.data.url);
+      window.location.href = res.data.url;
     } catch (error) {
       console.error('Payment error:', error);
       alert('Payment initiation failed. Try again.');
     }
   };
 
-  if (isLoading) {
-    return <p className="text-center mt-10">Loading booking...</p>;
-  }
+  if (isLoading) return <p className="text-center mt-10">Loading booking...</p>;
 
   return (
     <div className="max-w-md mx-auto mt-10 border p-6 rounded shadow-md">

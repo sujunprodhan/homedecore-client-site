@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
-
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -9,6 +9,7 @@ const PaymentHistory = () => {
 
   const { data: payments = [] } = useQuery({
     queryKey: ['payments', user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
       return res.data;
@@ -23,30 +24,22 @@ const PaymentHistory = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>User</th>
             <th>Service</th>
             <th>Amount</th>
-            <th>Transaction</th>
-            <th>Tracking</th>
+            <th>Transaction ID</th>
+            <th>Tracking ID</th>
             <th>Date</th>
           </tr>
         </thead>
-
         <tbody>
           {payments.map((p, i) => (
             <tr key={p._id}>
               <td>{i + 1}</td>
-
-              <td className="flex items-center gap-2">
-                <img src={p.userImage || user.photoURL} className="w-10 h-10 rounded-full" alt="" />
-                <span>{user.displayName}</span>
-              </td>
-
               <td>{p.serviceName}</td>
-              <td>৳ {p.price}</td>
+              <td>৳ {p.amount}</td>
               <td className="text-xs">{p.transactionId}</td>
               <td>{p.trackingId}</td>
-              <td>{new Date(p.paidAt).toLocaleDateString()}</td>
+              <td>{new Date(p.paidAt).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
