@@ -1,45 +1,178 @@
-import { NavLink, Outlet } from 'react-router';
-import { FaBook, FaHistory, FaCheckCircle, FaUsers } from 'react-icons/fa';
+import { Link, NavLink, Outlet } from 'react-router';
+import { FaBook, FaCheckCircle, FaCreditCard, FaMoneyBillWave,  FaTools, FaUsers, FaUserShield } from 'react-icons/fa';
 
-const DashboardLayout = () => {
-  const menuItems = [
-    { name: 'My Bookings', to: '/dashboard/my-booking', icon: <FaBook /> },
-    { name: 'Admin Booking', to: '/dashboard/admin-bookings', icon: <FaUsers /> },
-    { name: 'Payment History', to: '/dashboard/payment-history', icon: <FaHistory /> },
-    { name: 'Payment Success', to: '/dashboard/payment-success', icon: <FaCheckCircle /> },
-  ];
+import useRole from '../Hooks/useRole';
+
+const DashBoardLayout = () => {
+  const { role } = useRole();
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg p-5 flex flex-col">
-        <h2 className="text-2xl font-bold mb-6 text-[#E92C8F]">Home Decor</h2>
-
-        <nav className="flex flex-col gap-3 mt-4">
-          {menuItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors group ${
-                  isActive ? 'bg-[#E92C8F] text-white' : 'text-gray-700 hover:bg-pink-100'
-                }`
-              }
-              title={item.name} // tooltip text on hover
+    <div className="drawer lg:drawer-open w-11/12 mx-auto">
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {/* Navbar */}
+        <nav className="navbar w-full bg-base-300">
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="open sidebar"
+            className="btn btn-square btn-ghost"
+          >
+            {/* Sidebar toggle icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2"
+              fill="none"
+              stroke="currentColor"
+              className="my-1.5 inline-block size-4"
             >
-              <span className="text-lg">{item.icon}</span>
-              <span className="hidden group-hover:inline">{item.name}</span>
-            </NavLink>
-          ))}
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+              <path d="M9 4v16"></path>
+              <path d="M14 10l2 2l-2 2"></path>
+            </svg>
+          </label>
+          <div className="px-4 text_primary text-xl font-bold">Home Decore</div>
         </nav>
-      </aside>
+        {/* Page content here */}
+        <Outlet></Outlet>
+      </div>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6">
-        <Outlet />
-      </main>
+      <div className="drawer-side is-drawer-close:overflow-visible">
+        <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          {/* Sidebar content here */}
+          <ul className="menu w-full grow">
+            {/* List item */}
+            <li>
+              <Link
+                to="/"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Homepage"
+              >
+                {/* Home icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  fill="none"
+                  stroke="currentColor"
+                  className="my-1.5 inline-block size-4"
+                >
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+            {/* Dashboard link */}
+            <li>
+              <NavLink
+                to="/dashboard/my-booking"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Booking"
+              >
+                <FaBook size={24} className="text-pink-600" />,
+                <span className="is-drawer-close:hidden"> My Booking</span>
+              </NavLink>
+            </li>
+            {/* Payment History */}
+            <li>
+              <NavLink
+                to="/dashboard/payment-history"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment History"
+              >
+                <FaCreditCard size={24} className="text-pink-600" />
+                <span className="is-drawer-close:hidden"> Payment History</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/payment-success"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment Successful"
+              >
+                <FaCheckCircle size={24} className="text-pink-600" />
+                <span className="is-drawer-close:hidden"> Payment History</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/admin-dashboard"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Admin Dashboard"
+              >
+                <FaTools size={24} className="text-pink-600" />
+                <span className="is-drawer-close:hidden"> Rider</span>
+              </NavLink>
+            </li>
+
+            {/* User Manage */}
+            {role === 'admin' && (
+              <>
+                {/* Approve Riders */}
+
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-bookings"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Booking"
+                  >
+                    <FaBook size={24} />
+                    <span className="is-drawer-close:hidden"> User Management</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-users"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage User"
+                  >
+                    <FaUserShield size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> User Management</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-services"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Services"
+                  >
+                    <FaTools size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> User Management</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/assign-decorator"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Decorator"
+                  >
+                    <FaUsers size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> User Management</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/revenue"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Decorator"
+                  >
+                    <FaMoneyBillWave size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> User Management</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default DashboardLayout;
+export default DashBoardLayout;

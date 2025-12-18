@@ -1,28 +1,32 @@
-import { createBrowserRouter } from "react-router";
-import Layoute from "../Layoute/Layoute";
-import Home from "../Pages/Home";
-import Services from "../Pages/Services";
-import About from "../Pages/About";
-import Contact from "../Pages/Contact";
-import Login from "../Componets/Login";
-import Register from "../Componets/Register";
-import Covarage from "../Pages/Covarage";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import MyBooking from "../Pages/MyBooking";
-import ServiceDetails from "../Pages/ServiceDetails";
-import DashboardLayout from "../DashboardLayoute/DashboardLayout";
-import AdminRoute from "./AdminRoute";
-import AdminBookings from "../Pages/AdminBookings";
-import Payment from "../DashboardLayoute/Payment";
-import PaymentSuccess from "../DashboardLayoute/PaymentSuccess";
-import PyamentCancel from "../DashboardLayoute/PyamentCancel";
-import PaymentHistory from "../DashboardLayoute/PaymentHistory/PaymentHistory";
+import { createBrowserRouter } from 'react-router';
+import Layoute from '../Layoute/Layoute';
+import Home from '../Pages/Home';
+import Services from '../Pages/Services';
+import About from '../Pages/About';
+import Contact from '../Pages/Contact';
+import Login from '../Componets/Login';
+import Register from '../Componets/Register';
+import Covarage from '../Pages/Covarage';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import MyBooking from '../Pages/MyBooking';
+import ServiceDetails from '../Pages/ServiceDetails';
+import DashboardLayout from '../DashboardLayoute/DashboardLayout';
+import AdminRoute from './AdminRoute';
 
-// import DashboardLayout from '../layouts/DashboardLayout';
-// import MyBooking from '../pages/MyBooking';
-// import AdminBookings from '../pages/AdminBookings';
-// import PrivateRoute from './PrivateRoute';
-// import AdminRoute from './AdminRoute';
+// Dashboard Pages
+import Payment from '../DashboardLayoute/Payment';
+import PaymentSuccess from '../DashboardLayoute/PaymentSuccess';
+import PyamentCancel from '../DashboardLayoute/PyamentCancel';
+import PaymentHistory from '../DashboardLayoute/PaymentHistory/PaymentHistory';
+
+// Admin
+import AdminBookings from '../Pages/AdminBookings';
+import AdminDashboard from '../Admin/AdminDashboard';
+import ManageUser from '../Admin/ManageUsers';
+import AssignDecorator from '../Admin/AssignDecorator';
+import ManageBookings from '../Admin/ManageBookings';
+import ManageServices from '../Admin/ManageServices';
+import Revenue from '../Admin/Revenue';
 
 export const router = createBrowserRouter([
   {
@@ -31,47 +35,40 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home></Home>,
+        element: <Home />,
       },
 
       {
-        path: '/services',
-        element: <Services></Services>,
+        path: 'services',
+        element: <Services />,
         loader: () => fetch('http://localhost:3000/homeservice').then((res) => res.json()),
       },
+
       {
-        path: '/servicedetails/:id',
+        path: 'servicedetails/:id',
         element: (
           <PrivateRoute>
-            <ServiceDetails></ServiceDetails>
+            <ServiceDetails />
           </PrivateRoute>
         ),
         loader: ({ params }) => fetch(`http://localhost:3000/homeservice/${params.id}`),
       },
-      {
-        path: '/about',
-        element: <About></About>,
-      },
-      {
-        path: '/contact',
-        element: <Contact></Contact>,
-      },
-      {
-        path: '/covarage',
-        element: <Covarage></Covarage>,
-        loader: () => fetch('/service.json').then((res) => res.json()),
-      },
-      {
-        path: '/login',
-        element: <Login></Login>,
-      },
-      {
-        path: '/register',
-        element: <Register></Register>,
-      },
+
+      { path: 'about', element: <About /> },
+      { path: 'contact', element: <Contact /> },
 
       {
-        path: '/dashboard',
+        path: 'covarage',
+        element: <Covarage />,
+        loader: () => fetch('/service.json').then((res) => res.json()),
+      },
+
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
+
+      // ================= DASHBOARD =================
+      {
+        path: 'dashboard',
         element: (
           <PrivateRoute>
             <DashboardLayout />
@@ -79,29 +76,36 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
-            path: 'bookingpage',
-            element: <PrivateRoute></PrivateRoute>,
+            index: true,
+            element: <MyBooking />,
           },
+
           {
             path: 'my-booking',
             element: <MyBooking />,
           },
+
           {
             path: 'payment/:bookingId',
             element: <Payment />,
           },
+
           {
             path: 'payment-success',
-            element: <PaymentSuccess></PaymentSuccess>,
+            element: <PaymentSuccess />,
           },
+
           {
             path: 'payment-cancel',
-            element: <PyamentCancel></PyamentCancel>,
+            element: <PyamentCancel />,
           },
+
           {
             path: 'payment-history',
-            element: <PaymentHistory></PaymentHistory>,
+            element: <PaymentHistory />,
           },
+
+          // ========== ADMIN ==========
           {
             path: 'admin-bookings',
             element: (
@@ -110,6 +114,34 @@ export const router = createBrowserRouter([
               </AdminRoute>
             ),
           },
+          {
+            path: 'admin-dashboard',
+            element: <AdminDashboard></AdminDashboard>,
+          },
+          {
+            path: 'manage-users',
+            element: <ManageUser></ManageUser>,
+          },
+          {
+            path: 'assign-decorator',
+            element: <AssignDecorator></AssignDecorator>,
+          },
+          {
+            path:'manage-bookings',
+            element:<ManageBookings></ManageBookings>
+          },
+          {
+            path:'manage-bookings',
+            element:<ManageBookings></ManageBookings>
+          },
+          {
+            path:'manage-serviceS',
+            element:<ManageServices></ManageServices>
+          },
+          {
+            path:'revenue',
+            element:<Revenue/>
+          }
         ],
       },
     ],

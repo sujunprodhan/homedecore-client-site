@@ -5,15 +5,22 @@ import useAxiosSecure from './useAxiosSecure';
 const useAdmin = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminLoading, setAdminLoading] = useState(true);
 
   useEffect(() => {
     if (!loading && user?.email) {
-      axiosSecure.get(`/users/admin/${user.email}`).then((res) => {
-        setIsAdmin(res.data.admin);
-        setAdminLoading(false);
-      });
+      axiosSecure
+        .get(`/users/${user.email}/role`)
+        .then((res) => {
+          setIsAdmin(res.data.role === 'admin');
+          setAdminLoading(false);
+        })
+        .catch(() => {
+          setIsAdmin(false);
+          setAdminLoading(false);
+        });
     }
   }, [user, loading, axiosSecure]);
 

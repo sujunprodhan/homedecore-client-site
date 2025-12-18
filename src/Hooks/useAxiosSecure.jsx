@@ -13,24 +13,31 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const reqInterceptor = axiosSecure.interceptors.request.use(async (config) => {
-      if (user) {
-        const auth = getAuth();
-        const token = await auth.currentUser.getIdToken(true); // ✅ refreshed token
-        config.headers.authorization = `Bearer ${token}`;
-      }
-      return config;
-    });
-
+    const reqInterceptor = axiosSecure.interceptors.request.use(
+      async (config) => {
+        if (user) {
+          try {
+            const auth = getAuth();
+            const token = await auth.currentUser.getIdToken(true); // always fresh
+            config.headers.authorization = `Bearer ${token}`;
+          } catch (err) {
+            console.error('Failed to get token:', err);
+          }
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
     const resInterceptor = axiosSecure.interceptors.response.use(
       (response) => response,
       async (error) => {
         const status = error.response?.status;
 
         if (status === 401 || status === 403) {
-          // await logOut();
-          // navigate('/login');
+          console.warn('Unauthorized/Forbidden. Redirecting to login...');
+          
         }
+
         return Promise.reject(error);
       }
     );

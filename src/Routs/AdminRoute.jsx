@@ -8,16 +8,18 @@ const AdminRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || roleLoading) {
-    return <p className="text-center mt-20">Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
   }
-
-  console.log(role, user);
 
   if (user && role === 'admin') {
     return children;
   }
 
-  return <Navigate to="/" state={{ from: location }} replace />;
+  return <Navigate to="/dashboard" state={{ from: location }} replace />;
 };
 
 export default AdminRoute;
