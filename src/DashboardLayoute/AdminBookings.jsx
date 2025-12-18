@@ -17,12 +17,12 @@ const AdminBookings = () => {
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      <h2 className="text-2xl font-bold mb-6">All Bookings</h2>
+      <h2 className="text-2xl font-bold mb-6 text-pink-600">All Bookings</h2>
 
       <table className="table table-zebra w-full">
         <thead>
-          <tr>
-            <th>#</th>
+          <tr className='text-pink-600'>
+            <th>No.</th>
             <th>User Email</th>
             <th>Service</th>
             <th>Status</th>
