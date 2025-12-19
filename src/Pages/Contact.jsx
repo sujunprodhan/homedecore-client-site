@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import useAuth from '../Hooks/useAuth';
+import ContactImg from '../assets/contactimage.jpg'
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const { user } = useAuth();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Form submit logic here (API call)
+  useEffect(() => {
+    if (user) {
+      setValue('name', user.displayName || '');
+      setValue('email', user.email || '');
+    }
+  }, [user, setValue]);
+
+  const onSubmit = (data) => {
+    console.log(data);
     alert('Message sent successfully!');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    reset({
+      name: user?.displayName || '',
+      email: user?.email || '',
+      subject: '',
+      message: '',
+    });
   };
 
   return (
@@ -25,59 +38,65 @@ const Contact = () => {
       <h1 className="text-center text-4xl font-bold text-pink-600 mb-10">Contact Us</h1>
 
       <div className="flex flex-col md:flex-row items-center gap-10">
-        {/* Left Side - Image */}
+        {/* Left Image */}
         <div className="md:w-1/2">
           <img
-            src="/images/contact-image.jpg" // replace with your image path
-            alt="Contact Us"
+            src={ContactImg}
+            alt="Contact"
             className="rounded-xl shadow-lg w-full object-cover"
           />
         </div>
 
-        {/* Right Side - Form */}
+        {/* Form */}
         <motion.div
           className="md:w-1/2 bg-white p-8 rounded-xl shadow-lg"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            {/* Name */}
             <input
               type="text"
-              name="name"
               placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              {...register('name', { required: true })}
+              readOnly={!!user}
+              className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500 ${
+                user && 'bg-gray-100 cursor-not-allowed'
+              }`}
             />
+            {errors.name && <span className="text-red-500 text-sm">Name is required</span>}
+
+            {/* Email */}
             <input
               type="email"
-              name="email"
               placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              {...register('email', { required: true })}
+              readOnly={!!user}
+              className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500 ${
+                user && 'bg-gray-100 cursor-not-allowed'
+              }`}
             />
+            {errors.email && <span className="text-red-500 text-sm">Email is required</span>}
+
+            {/* Subject */}
             <input
               type="text"
-              name="subject"
               placeholder="Subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              className="border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              {...register('subject', { required: true })}
+              className="border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500"
             />
+            {errors.subject && <span className="text-red-500 text-sm">Subject is required</span>}
+
+            {/* Message */}
             <textarea
-              name="message"
+              rows="5"
               placeholder="Your Message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              className="border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              {...register('message', { required: true })}
+              className="border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500"
             />
+            {errors.message && <span className="text-red-500 text-sm">Message is required</span>}
+
             <button
               type="submit"
               className="bg-gradient-to-r from-pink-500 to-pink-700 text-white font-semibold py-3 rounded-lg hover:from-pink-600 hover:to-pink-800 transition"
@@ -88,18 +107,18 @@ const Contact = () => {
         </motion.div>
       </div>
 
-      {/* Additional Info Section */}
+      {/* Info Section */}
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="font-semibold text-xl mb-2 text-pink-600">Email Us</h3>
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="font-semibold text-xl text-pink-600">Email Us</h3>
           <p className="text-gray-500">support@homedecor.com</p>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="font-semibold text-xl mb-2 text-pink-600">Call Us</h3>
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="font-semibold text-xl text-pink-600">Call Us</h3>
           <p className="text-gray-500">+880 1234 567890</p>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="font-semibold text-xl mb-2 text-pink-600">Visit Us</h3>
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="font-semibold text-xl text-pink-600">Visit Us</h3>
           <p className="text-gray-500">123 Home Decor Street, Dhaka, Bangladesh</p>
         </div>
       </div>
