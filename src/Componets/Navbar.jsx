@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import { toast } from 'react-toastify';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiInfo, FiPhone, FiShoppingBag, FiUser } from 'react-icons/fi';
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const dropdownRef = useRef();
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -26,6 +27,11 @@ const Navbar = () => {
       .catch((error) => toast.error(error.message));
   };
 
+  const navLinkClass = (path) =>
+    location.pathname === path
+      ? 'text-[#E92C8F] font-semibold flex items-center gap-2'
+      : 'text-gray-700 hover:text-pink-600 transition flex items-center gap-2';
+
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -41,16 +47,25 @@ const Navbar = () => {
 
         {/* Center Menu (Desktop) */}
         <div className="hidden md:flex gap-8 font-medium">
-          <Link to="/">Home</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/dashboard/my-booking">My Booking</Link>
+          <Link to="/" className={navLinkClass('/')}>
+            <FiHome /> Home
+          </Link>
+          <Link to="/services" className={navLinkClass('/services')}>
+            <FiShoppingBag /> Services
+          </Link>
+          <Link to="/about" className={navLinkClass('/about')}>
+            <FiInfo /> About
+          </Link>
+          <Link to="/contact" className={navLinkClass('/contact')}>
+            <FiPhone /> Contact
+          </Link>
+          <Link to="/dashboard/my-booking" className={navLinkClass('/dashboard/my-booking')}>
+            <FiUser /> My Booking
+          </Link>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-4 relative">
-          {/* Desktop User Dropdown */}
           {user ? (
             <div className="relative hidden md:block" ref={dropdownRef}>
               <img
@@ -59,18 +74,16 @@ const Navbar = () => {
                 alt="user"
                 className="w-10 h-10 rounded-full border cursor-pointer object-cover"
               />
-
               {userOpen && (
                 <div className="absolute right-0 mt-3 w-60 bg-white border rounded-xl shadow-lg overflow-hidden">
                   <div className="px-4 py-3 border-b">
                     <p className="font-semibold">{user.displayName || 'User'}</p>
                     <p className="text-sm text-gray-500">{user.email}</p>
                   </div>
-
                   <div className="flex flex-col">
                     <button
                       onClick={handleLogout}
-                      className="px-4 py-2 text-left text-red-600 hover:bg-red-50"
+                      className="px-4 py-2 text-left text-red-600 hover:bg-red-50 transition"
                     >
                       Logout
                     </button>
@@ -80,10 +93,16 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="hidden md:flex gap-3">
-              <Link to="/login" className="px-4 py-2 border rounded-lg">
+              <Link
+                to="/login"
+                className="px-4 py-2 border rounded-lg hover:border-pink-500 transition"
+              >
                 Login
               </Link>
-              <Link to="/register" className="px-4 py-2 bg-[#E92C8F] text-white rounded-lg">
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-[#E92C8F] text-white rounded-lg hover:bg-pink-700 transition"
+              >
                 Register
               </Link>
             </div>
@@ -98,19 +117,29 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden border-t px-6 py-4 space-y-4">
-          <Link to="/">Home</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/bookingpage">Booking Now</Link>
+        <div className="md:hidden border-t px-6 py-4 space-y-4 bg-white">
+          <Link to="/" className={navLinkClass('/')}>
+            <FiHome /> Home
+          </Link>
+          <Link to="/services" className={navLinkClass('/services')}>
+            <FiShoppingBag /> Services
+          </Link>
+          <Link to="/about" className={navLinkClass('/about')}>
+            <FiInfo /> About
+          </Link>
+          <Link to="/contact" className={navLinkClass('/contact')}>
+            <FiPhone /> Contact
+          </Link>
+          <Link to="/bookingpage" className={navLinkClass('/bookingpage')}>
+            <FiUser /> Booking Now
+          </Link>
 
           <hr />
 
           {user ? (
             <>
               <div className="flex items-center gap-3">
-                <img src={user.photoURL} className="w-10 h-10 rounded-full" />
+                <img src={user.photoURL} className="w-10 h-10 rounded-full" alt="user" />
                 <div>
                   <p className="font-semibold">{user.displayName}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>
@@ -118,17 +147,23 @@ const Navbar = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="w-full py-2 bg-[#E92C8F] text-white rounded-lg"
+                className="w-full py-2 bg-[#E92C8F] text-white rounded-lg hover:bg-pink-700 transition"
               >
                 Logout
               </button>
             </>
           ) : (
             <div className="flex flex-col gap-3">
-              <Link to="/login" className="py-2 text-center border rounded-lg">
+              <Link
+                to="/login"
+                className="py-2 text-center border rounded-lg hover:border-pink-500 transition"
+              >
                 Login
               </Link>
-              <Link to="/register" className="py-2 text-center bg-[#E92C8F] text-white rounded-lg">
+              <Link
+                to="/register"
+                className="py-2 text-center bg-[#E92C8F] text-white rounded-lg hover:bg-pink-700 transition"
+              >
                 Register
               </Link>
             </div>

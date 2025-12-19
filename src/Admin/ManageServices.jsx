@@ -52,82 +52,129 @@ const ManageServices = () => {
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading services...</p>;
+  if (loading) {
+    return <p className="text-center mt-10 text-gray-500">Loading services...</p>;
+  }
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4 text-pink-600">Manage Services</h2>
-
-      <div className="mb-6 flex flex-wrap gap-2">
-        <input
-          placeholder="Service Name"
-          value={newService.service_name}
-          onChange={(e) => setNewService({ ...newService, service_name: e.target.value })}
-          className="border p-2"
-        />
-        <input
-          placeholder="Cost"
-          type="number"
-          value={newService.cost}
-          onChange={(e) => setNewService({ ...newService, cost: e.target.value })}
-          className="border p-2"
-        />
-        <input
-          placeholder="Unit"
-          value={newService.unit}
-          onChange={(e) => setNewService({ ...newService, unit: e.target.value })}
-          className="border p-2"
-        />
-        <input
-          placeholder="Category"
-          value={newService.service_category}
-          onChange={(e) => setNewService({ ...newService, service_category: e.target.value })}
-          className="border p-2"
-        />
-        <input
-          placeholder="Description"
-          value={newService.description}
-          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-          className="border p-2"
-        />
-        <button onClick={handleAddService} className="bg-pink-600 text-white px-4 py-2 rounded">
-          Add
-        </button>
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-3xl font-bold text-pink-600">Manage Services</h2>
+        <p className="text-gray-500 mt-1">Add, view and manage all available services</p>
       </div>
 
-      <table className="table-auto w-full border-collapse border">
-        <thead>
-          <tr className="bg-pink-600 text-white">
-            <th className="border px-4 py-2">No.</th>
-            <th className="border px-4 py-2">Service Name</th>
-            <th className="border px-4 py-2">Cost</th>
-            <th className="border px-4 py-2">Unit</th>
-            <th className="border px-4 py-2">Category</th>
-            <th className="border px-4 py-2">Description</th>
-            <th className="border px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {services.map((s, i) => (
-            <tr key={s._id} className="hover:bg-gray-50">
-              <td className="border px-4 py-2">{i + 1}</td>
-              <td className="border px-4 py-2">{s.service_name}</td>
-              <td className="border px-4 py-2">{s.cost}</td>
-              <td className="border px-4 py-2">{s.unit}</td>
-              <td className="border px-4 py-2">{s.service_category}</td>
-              <td className="border px-4 py-2">{s.description}</td>
-              <td className="border px-4 py-2">
-                <button
-                  onClick={() => handleDelete(s._id)}
-                  className="bg-red-600 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
-              </td>
+      {/* Add Service Card */}
+      <div className="bg-white rounded-xl shadow border border-gray-200 p-6 mb-8">
+        <h3 className="text-lg font-semibold mb-4 text-gray-700">Add New Service</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input
+            placeholder="Service Name"
+            value={newService.service_name}
+            onChange={(e) => setNewService({ ...newService, service_name: e.target.value })}
+            className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+
+          <input
+            placeholder="Cost"
+            type="number"
+            value={newService.cost}
+            onChange={(e) => setNewService({ ...newService, cost: e.target.value })}
+            className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+
+          <input
+            placeholder="Unit"
+            value={newService.unit}
+            onChange={(e) => setNewService({ ...newService, unit: e.target.value })}
+            className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+
+          <input
+            placeholder="Category"
+            value={newService.service_category}
+            onChange={(e) =>
+              setNewService({
+                ...newService,
+                service_category: e.target.value,
+              })
+            }
+            className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+
+          <input
+            placeholder="Description"
+            value={newService.description}
+            onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+            className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 md:col-span-2"
+          />
+        </div>
+
+        <div className="mt-4">
+          <button
+            onClick={handleAddService}
+            className="px-6 py-2 rounded-lg text-white font-medium
+            bg-gradient-to-r from-pink-500 to-pink-600
+            hover:from-pink-600 hover:to-pink-700
+            shadow-md hover:shadow-lg transition"
+          >
+            Add Service
+          </button>
+        </div>
+      </div>
+
+      {/* Services Table */}
+      <div className="overflow-x-auto bg-white rounded-xl shadow border border-gray-200">
+        <table className="min-w-[1000px] w-full border-collapse">
+          <thead>
+            <tr className="bg-gradient-to-r from-pink-500 to-pink-600 text-white">
+              {['No.', 'Service Name', 'Cost', 'Unit', 'Category', 'Description', 'Action'].map(
+                (head) => (
+                  <th
+                    key={head}
+                    className="px-5 py-3 text-left text-sm font-semibold uppercase tracking-wide"
+                  >
+                    {head}
+                  </th>
+                )
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200">
+            {services.map((s, i) => (
+              <tr key={s._id} className="hover:bg-pink-50 transition">
+                <td className="px-5 py-3">{i + 1}</td>
+                <td className="px-5 py-3 font-medium">{s.service_name}</td>
+                <td className="px-5 py-3">৳ {s.cost}</td>
+                <td className="px-5 py-3">{s.unit}</td>
+                <td className="px-5 py-3">{s.service_category}</td>
+                <td className="px-5 py-3 text-sm text-gray-600">{s.description}</td>
+                <td className="px-5 py-3">
+                  <button
+                    onClick={() => handleDelete(s._id)}
+                    className="px-4 py-1.5 rounded-lg text-white font-medium
+                    bg-gradient-to-r from-red-500 to-red-600
+                    hover:from-red-600 hover:to-red-700
+                    shadow-md hover:shadow-lg transition"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+
+            {services.length === 0 && (
+              <tr>
+                <td colSpan="7" className="text-center py-10 text-gray-500">
+                  No services found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

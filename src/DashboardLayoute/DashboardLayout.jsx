@@ -26,14 +26,14 @@ const DashBoardLayout = () => {
               strokeWidth="2"
               fill="none"
               stroke="currentColor"
-              className="my-1.5 inline-block size-4"
+              className="inline-block size-7 text-pink-600"
             >
               <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
               <path d="M9 4v16"></path>
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4 text_primary text-xl font-bold">Home Decore</div>
+          <div className="px-4 text_primary text-xl font-bold text-pink-600">Home Decore</div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
