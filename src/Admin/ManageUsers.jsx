@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const ManageUsers = () => {
@@ -8,10 +8,6 @@ const ManageUsers = () => {
     const res = await axios.get('http://localhost:3000/users');
     setUsers(res.data);
   };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   const makeAdmin = async (id) => {
     await axios.patch(`http://localhost:3000/users/admin/${id}`);

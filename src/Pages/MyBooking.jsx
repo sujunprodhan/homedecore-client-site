@@ -141,14 +141,14 @@ const MyBooking = () => {
                       <div className="flex gap-2">
                         <Link
                           to={`/dashboard/payment/${booking._id}`}
-                          className="px-3 py-1 text-white rounded bg-[#E92C8F] hover:bg-[#c22374]"
+                          className="px-3 py-1 text-white rounded bg-[#d80673] hover:bg-[#ff0084]"
                         >
                           Pay
                         </Link>
 
                         <button
                           onClick={() => handleUpdate(booking)}
-                          className="px-3 py-1 text-white rounded bg-blue-600 hover:bg-blue-700"
+                          className="px-3 py-1 text-pink-600 rounded bg-[#00daf7e7] hover:bg-[#03817b]"
                         >
                           Update
                         </button>

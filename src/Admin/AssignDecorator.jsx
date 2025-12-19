@@ -17,8 +17,8 @@ const AssignDecorator = () => {
   };
 
   useEffect(() => {
-    fetchBookings();
-    fetchDecorators();
+    fetchBookings()
+    fetchDecorators()
   }, []);
 
   const assignDecorator = async (bookingId, decoratorEmail) => {
