@@ -16,7 +16,7 @@ const AdminBookings = () => {
         .catch((err) => console.error(err));
     };
 
-    fetchBookings(); // initial fetch
+    fetchBookings();
     const interval = setInterval(fetchBookings, 5000); // refresh every 5s
 
     return () => clearInterval(interval); // cleanup
@@ -44,7 +44,7 @@ const AdminBookings = () => {
       .catch((err) => console.error(err));
   };
 
-  // ---------------- Filter bookings by search term ----------------
+  // ---------- Filter bookings by search term ---------
   const filteredBookings = bookings.filter((b) => {
     const term = searchTerm.toLowerCase();
     return (

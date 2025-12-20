@@ -4,7 +4,7 @@ import useAuth from '../Hooks/useAuth';
 
 const DecoratorDashboard = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth(); // logged-in decorator info
+  const { user } = useAuth();
   const decoratorEmail = user?.email;
 
   const [projects, setProjects] = useState([]);

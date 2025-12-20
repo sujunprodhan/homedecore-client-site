@@ -115,7 +115,7 @@ const ServiceDetails = () => {
           confirmButtonColor: '#d63384',
         });
         reset();
-        fetchReviews(); // Refresh review list
+        fetchReviews(); 
       }
     } catch (error) {
       console.error(error);
