@@ -1,69 +1,76 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { FaTools, FaBook, FaUsers, FaUserTie, FaMoneyBillWave } from 'react-icons/fa';
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
 
 const AdminDashboard = () => {
-  const cards = [
-    {
-      title: 'Manage Services',
-      desc: 'Add, update or remove home decor services',
-      to: '/dashboard/manage-services',
-      icon: <FaTools />,
-    },
-    {
-      title: 'Manage Bookings',
-      desc: 'View and control all customer bookings',
-      to: '/dashboard/manage-bookings',
-      icon: <FaBook />,
-    },
-    {
-      title: 'Manage Users',
-      desc: 'Control users and admin permissions',
-      to: '/dashboard/manage-users',
-      icon: <FaUsers />,
-    },
-    {
-      title: 'Assign Decorator',
-      desc: 'Assign decorators to customer bookings',
-      to: '/dashboard/assign-decorator',
-      icon: <FaUserTie />,
-    },
-    {
-      title: 'Revenue & Analytics',
-      desc: 'Track earnings and business performance',
-      to: '/dashboard/revenue',
-      icon: <FaMoneyBillWave />,
-    },
+  const revenueData = [
+    { month: 'Jan', revenue: 12000 },
+    { month: 'Feb', revenue: 18000 },
+    { month: 'Mar', revenue: 25000 },
+    { month: 'Apr', revenue: 30000 },
+  ];
+  const serviceDemandData = [
+    { service: 'Wedding Decor', bookings: 40 },
+    { service: 'Birthday Decor', bookings: 25 },
+    { service: 'Corporate Event', bookings: 15 },
   ];
 
   return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#E92C8F]">Admin Dashboard</h1>
-        <p className="text-gray-600 mt-1">Manage your platform efficiently from one place</p>
+    <div className="p-6 space-y-10">
+      {/* ===== Revenue Cards ===== */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="card bg-base-100 shadow p-4">
+          <h3 className="font-semibold">Total Revenue</h3>
+          <p className="text-2xl font-bold text-pink-600">৳85,000</p>
+        </div>
+
+        <div className="card bg-base-100 shadow p-4">
+          <h3 className="font-semibold">This Month</h3>
+          <p className="text-2xl font-bold text-pink-600">৳30,000</p>
+        </div>
+
+        <div className="card bg-base-100 shadow p-4">
+          <h3 className="font-semibold">Today</h3>
+          <p className="text-2xl font-bold text-pink-600">৳2,500</p>
+        </div>
       </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card) => (
-          <Link
-            key={card.to}
-            to={card.to}
-            className="group bg-white rounded-xl shadow-md p-6 border hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="text-2xl text-[#E92C8F] group-hover:scale-110 transition">
-                {card.icon}
-              </div>
-              <h2 className="text-lg font-semibold text-gray-800">{card.title}</h2>
-            </div>
+      {/* ===== Revenue Analytics Line Chart ===== */}
+      <div className="card bg-base-100 shadow p-6">
+        <h2 className="text-xl font-bold mb-4">Revenue Analytics</h2>
 
-            <p className="text-sm text-gray-600">{card.desc}</p>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={revenueData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="revenue" stroke="#ec4899" strokeWidth={3} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
-            <div className="mt-4 text-sm font-medium text-[#E92C8F]">Go to section →</div>
-          </Link>
-        ))}
+      {/* ===== Service Demand Histogram ===== */}
+      <div className="card bg-base-100 shadow p-6">
+        <h2 className="text-xl font-bold mb-4">Service Demand (Histogram)</h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={serviceDemandData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="service" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="bookings" fill="#ec4899" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

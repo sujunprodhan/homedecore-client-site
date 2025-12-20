@@ -2,6 +2,7 @@ import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 
+
 const Payment = () => {
   const { bookingId } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -27,29 +28,47 @@ const Payment = () => {
 
     try {
       const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
-      window.location.href = res.data.url;
+
+      if (res.data.url) {
+        window.location.href = res.data.url; // Redirect to Stripe checkout
+      } else {
+     ('Failed to create checkout session. Try again.');
+      }
     } catch (error) {
       console.error('Payment error:', error);
-      alert('Payment initiation failed. Try again.');
+      ('Payment initiation failed. Try again.');
     }
   };
 
   if (isLoading) return <p className="text-center mt-10">Loading booking...</p>;
 
-  return (
-    <div className="max-w-md mx-auto mt-10 border p-6 rounded shadow-md">
-      <h2 className="text-xl font-bold mb-4">Payment Details</h2>
-      <p>
-        <strong>Service:</strong> {booking?.serviceName}
-      </p>
-      <p>
-        <strong>Price:</strong> ৳{booking?.price}
-      </p>
+  if (!booking) return <p className="text-center mt-10 text-red-500">Booking not found.</p>;
 
-      <button onClick={handlePayment} className="btn btn-success w-full mt-4">
-        Pay Now
-      </button>
-    </div>
+  return (
+    <>
+      {/* Hot-toast container */}
+      {/* <Toaster position="top-right" reverseOrder={false} /> */}
+
+      <div className="max-w-md mx-auto mt-10 border p-6 rounded-xl shadow-md bg-white">
+        <h2 className="text-2xl font-bold mb-4 text-pink-600">Payment Details</h2>
+        <p>
+          <strong>Service:</strong> {booking.serviceName}
+        </p>
+        <p>
+          <strong>Price:</strong> ৳{booking.price}
+        </p>
+        <p>
+          <strong>Booking ID:</strong> {booking._id}
+        </p>
+
+        <button
+          onClick={handlePayment}
+          className="mt-6 w-full px-4 py-2 rounded-lg text-white bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 shadow-md transition"
+        >
+          Pay Now
+        </button>
+      </div>
+    </>
   );
 };
 

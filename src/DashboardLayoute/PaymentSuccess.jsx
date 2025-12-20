@@ -4,60 +4,86 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
-  const [paymentInfo, setPaymentInfo] = useState({});
+  const [payment, setPayment] = useState(null);
+  const [message, setMessage] = useState('');
   const sessionId = searchParams.get('session_id');
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    if (sessionId) {
-      axiosSecure
-        .patch(`/payment-success?session_id=${sessionId}`)
-        .then((res) => {
-          console.log(res.data);
-          setPaymentInfo(res.data);
-        })
-        .catch((err) => console.error(err));
-    }
+    if (!sessionId) return;
+
+    const fetchPayment = async () => {
+      try {
+        const res = await axiosSecure.patch(`/payments-success?session_id=${sessionId}`);
+        const data = res.data;
+
+        if (data.payment && data.payment.paymentStatus === 'paid') {
+          setPayment(data.payment);
+          setMessage('Payment completed successfully!');
+        } else if (data.message === 'Payment already processed') {
+          setPayment(data.payment || null);
+          setMessage('This payment has already been processed.');
+        } else {
+          setMessage(data.message || 'Payment failed.');
+        }
+      } catch (error) {
+        console.error(error);
+        setMessage('Failed to verify payment.');
+      }
+    };
+
+    fetchPayment();
   }, [sessionId, axiosSecure]);
 
-  const isSuccess = paymentInfo.success;
+  const formatCurrency = (amount) =>
+    new Intl.NumberFormat('en-BD', { style: 'currency', currency: 'BDT' }).format(amount);
+
+  const formatDate = (dateString) =>
+    new Date(dateString).toLocaleString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
-      <div className="max-w-4xl w-full bg-white shadow-xl rounded-xl p-6">
-        <h1 className="text-3xl font-bold text-center mb-6 text-[#E92C8F]">
-          Payment {isSuccess ? 'Successful' : 'Failed'}
-        </h1>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-50 to-pink-100 p-6">
+      <div className="max-w-4xl w-full bg-white shadow-xl rounded-2xl p-8">
+        {/* Status Header */}
+        <div className="text-center mb-6">
+          <h1 className={`text-4xl font-extrabold ${payment ? 'text-green-600' : 'text-red-500'}`}>
+            {payment ? 'Payment Successful' : 'Payment Status'}
+          </h1>
+          {message && <p className="mt-2 text-lg font-medium text-gray-700">{message}</p>}
+        </div>
 
-        {isSuccess ? (
+        {/* Payment Details Table */}
+        {payment && (
           <div className="overflow-x-auto">
-            <table className="w-full table-auto border-collapse text-left">
-              <thead>
-                <tr className="bg-[#E92C8F] text-white">
-                  <th className="px-4 py-2">No.</th>
-                  <th className="px-4 py-2">Service</th>
-                  <th className="px-4 py-2">Amount</th>
-                  <th className="px-4 py-2">Transaction ID</th>
-                  <th className="px-4 py-2">Tracking ID</th>
-                  <th className="px-4 py-2">Date</th>
+            <table className="min-w-full border border-gray-200 rounded-lg shadow-sm">
+              <thead className="bg-pink-600 text-white">
+                <tr>
+                  <th className="px-6 py-3 text-left">#</th>
+                  <th className="px-6 py-3 text-left">Service</th>
+                  <th className="px-6 py-3 text-left">Amount</th>
+                  <th className="px-6 py-3 text-left">Transaction ID</th>
+                  <th className="px-6 py-3 text-left">Tracking ID</th>
+                  <th className="px-6 py-3 text-left">Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b hover:bg-gray-50 transition">
-                  <td className="px-4 py-3">{1}</td>
-                  <td className="px-4 py-3">{paymentInfo.payment?.service || 'N/A'}</td>
-                  <td className="px-4 py-3">BDT {paymentInfo.payment?.amount || '0.00'}</td>
-                  <td className="px-4 py-3">{paymentInfo.payment?.transactionId || 'N/A'}</td>
-                  <td className="px-4 py-3">{paymentInfo.payment?.trackingId || 'N/A'}</td>
-                  <td className="px-4 py-3">{paymentInfo.payment?.date || 'N/A'}</td>
+                <tr className="bg-gray-50 hover:bg-gray-100 transition">
+                  <td className="px-6 py-4">1</td>
+                  <td className="px-6 py-4 font-semibold">{payment.serviceName}</td>
+                  <td className="px-6 py-4">{formatCurrency(payment.price)}</td>
+                  <td className="px-6 py-4 text-xs break-all">{payment.transactionId}</td>
+                  <td className="px-6 py-4">{payment.trackingId || '-'}</td>
+                  <td className="px-6 py-4">{formatDate(payment.paidAt)}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        ) : (
-          <p className="text-center text-red-500 font-semibold mt-4">
-            Payment failed or already processed.
-          </p>
         )}
       </div>
     </div>

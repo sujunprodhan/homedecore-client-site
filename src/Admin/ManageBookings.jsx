@@ -1,94 +1,130 @@
-import React, {useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
-const ManageBookings = () => {
-  const [bookings, setBookings] = useState([]);
+const ManageDecorators = () => {
+  const [decorators, setDecorators] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
-  const fetchBookings = async () => {
-    const res = await axios.get('http://localhost:3000/admin/bookings');
-    setBookings(res.data);
+  const fetchDecorators = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/admin/decorators');
+      setDecorators(res.data);
+    } catch (err) {
+      console.error('Failed to fetch decorators', err);
+    }
   };
 
-  // useEffect(() => {
-  //   fetchBookings();
-  // }, []);
+  useEffect(() => {
+    fetchDecorators();
+  }, []);
+
+  const addDecorator = async () => {
+    if (!name || !email) return;
+
+    try {
+      await axios.post('http://localhost:3000/admin/decorators', { name, email });
+      Swal.fire('Success', 'Decorator added successfully', 'success');
+      setName('');
+      setEmail('');
+      fetchDecorators();
+    } catch (err) {
+      Swal.fire('Error', err.response?.data?.message || 'Failed to add decorator', 'error');
+    }
+  };
 
   const updateStatus = async (id, status) => {
-    await axios.patch(`http://localhost:3000/admin/bookings/${id}`, { status });
-    fetchBookings();
+    try {
+      await axios.patch(`http://localhost:3000/admin/decorators/${id}`, { status });
+      fetchDecorators();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteDecorator = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/admin/decorators/${id}`);
+      fetchDecorators();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <div className="p-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-pink-600">Manage Bookings</h2>
-        <p className="text-gray-500 mt-1">View and control all customer bookings</p>
+      <h2 className="text-3xl font-bold text-pink-600 mb-4">Manage Decorators</h2>
+
+      {/* Add Decorator */}
+      <div className="mb-6 flex gap-3">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border rounded px-3 py-2 w-1/3"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border rounded px-3 py-2 w-1/3"
+        />
+        <button onClick={addDecorator} className="bg-pink-600 text-white px-4 py-2 rounded">
+          Add Decorator
+        </button>
       </div>
 
-      {/* Table Wrapper */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow border border-gray-200">
-        <table className="min-w-[1000px] w-full border-collapse">
+      {/* Decorators Table */}
+      <div className="overflow-x-auto bg-white rounded-xl shadow border">
+        <table className="min-w-[600px] w-full border-collapse">
           <thead>
             <tr className="bg-gradient-to-r from-pink-500 to-pink-600 text-white">
-              {['No.', 'User Email', 'Service', 'Status', 'Price', 'Booking Date', 'Action'].map(
-                (head) => (
-                  <th
-                    key={head}
-                    className="px-5 py-3 text-left text-sm font-semibold uppercase tracking-wide"
-                  >
-                    {head}
-                  </th>
-                )
-              )}
+              {['No.', 'Name', 'Email', 'Status', 'Action'].map((head) => (
+                <th key={head} className="px-5 py-3 text-left text-sm font-semibold">
+                  {head}
+                </th>
+              ))}
             </tr>
           </thead>
-
           <tbody className="divide-y divide-gray-200">
-            {bookings.map((b, i) => (
-              <tr key={b._id} className="hover:bg-pink-50 transition">
+            {decorators.map((d, i) => (
+              <tr key={d._id} className="hover:bg-pink-50 transition">
                 <td className="px-5 py-3">{i + 1}</td>
-                <td className="px-5 py-3 text-gray-700">{b.email}</td>
-                <td className="px-5 py-3 font-medium">{b.serviceName}</td>
-
-                <td className="px-5 py-3">
-                  {b.status === 'Paid' ? (
-                    <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700 font-semibold">
-                      Paid
-                    </span>
-                  ) : (
-                    <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700 font-semibold">
-                      Pending
-                    </span>
-                  )}
-                </td>
-
-                <td className="px-5 py-3 font-semibold">৳ {b.price}</td>
-
-                <td className="px-5 py-3 text-sm text-gray-600">
-                  {new Date(b.createdAt).toLocaleDateString()}
-                </td>
-
-                <td className="px-5 py-3">
-                  {b.status !== 'Paid' && (
+                <td className="px-5 py-3">{d.name}</td>
+                <td className="px-5 py-3">{d.email}</td>
+                <td className="px-5 py-3 capitalize">{d.status || 'active'}</td>
+                <td className="px-5 py-3 flex gap-2">
+                  {d.status === 'active' ? (
                     <button
-                      onClick={() => updateStatus(b._id, 'Paid')}
-                      className="px-4 py-1.5 rounded-lg text-white font-medium
-                      bg-gradient-to-r from-pink-500 to-pink-600
-                      hover:from-pink-600 hover:to-pink-700
-                      shadow-md hover:shadow-lg transition"
+                      onClick={() => updateStatus(d._id, 'disabled')}
+                      className="bg-yellow-500 text-white px-2 py-1 rounded"
                     >
-                      Mark Paid
+                      Disable
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => updateStatus(d._id, 'active')}
+                      className="bg-green-500 text-white px-2 py-1 rounded"
+                    >
+                      Activate
                     </button>
                   )}
+                  <button
+                    onClick={() => deleteDecorator(d._id)}
+                    className="bg-red-600 text-white px-2 py-1 rounded"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
-
-            {bookings.length === 0 && (
+            {decorators.length === 0 && (
               <tr>
-                <td colSpan="7" className="text-center py-10 text-gray-500">
-                  No bookings found
+                <td colSpan="5" className="text-center py-10 text-gray-500">
+                  No decorators found
                 </td>
               </tr>
             )}
@@ -99,4 +135,4 @@ const ManageBookings = () => {
   );
 };
 
-export default ManageBookings;
+export default ManageDecorators;

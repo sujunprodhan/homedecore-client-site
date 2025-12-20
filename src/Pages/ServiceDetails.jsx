@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const ServiceDetails = () => {
-  const service = useLoaderData(); 
+  const service = useLoaderData();
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -20,40 +21,51 @@ const ServiceDetails = () => {
     return <p className="text-center mt-20 text-red-500 text-xl">Service not found</p>;
   }
 
-const onSubmit = async (data) => {
-  const bookingInfo = {
-    serviceName: service?.name || '',
-    serviceImage: service?.image || '',
-    serviceType: service?.serviceType || '',
-    price: service?.price || 0,
-    userName: user?.displayName || '',
-    email: user?.email || '',
-    bookingDate: data.date,
-    location: data.location,
+  const onSubmit = async (data) => {
+    const bookingInfo = {
+      serviceName: service?.name || '',
+      serviceImage: service?.image || '',
+      serviceType: service?.serviceType || '',
+      price: service?.price || 0,
+      userName: user?.displayName || '',
+      email: user?.email || '',
+      bookingDate: data.date,
+      location: data.location,
+    };
+
+    try {
+      const res = await fetch('http://localhost:3000/bookings', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(bookingInfo),
+      });
+
+      const result = await res.json();
+
+      if (result.insertedId) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Booking Confirmed!',
+          text: 'Your booking has been successfully placed.',
+          confirmButtonColor: '#d63384',
+        });
+        setOpen(false);
+        reset();
+        navigate('/dashboard/my-booking');
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Booking Failed',
+        text: 'Something went wrong. Please try again.',
+        confirmButtonColor: '#d63384',
+      });
+    }
   };
 
-  try {
-    const res = await fetch('http://localhost:3000/bookings', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(bookingInfo),
-    });
-
-    const result = await res.json();
-
-    if (result.insertedId) {
-      alert('Booking confirmed!');
-      setOpen(false);
-      reset();
-      navigate('/dashboard/my-booking')
-    }
-  } catch (error) {
-    console.error(error);
-    alert('Booking failed');
-  }
-};
   return (
     <div className="w-11/12 mx-auto py-10">
       {/* Service Image */}
@@ -76,7 +88,18 @@ const onSubmit = async (data) => {
         <div className="border rounded-xl p-6 shadow">
           <p className="text-3xl font-bold text-pink-600">৳ {service?.price || 0}</p>
           <button
-            onClick={() => (user ? setOpen(true) : alert('Please login to book this service'))}
+            onClick={() => {
+              if (user) {
+                setOpen(true);
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Login Required',
+                  text: 'Please login to book this service',
+                  confirmButtonColor: '#d63384',
+                });
+              }
+            }}
             className="w-full mt-6 bg-pink-600 hover:bg-pink-700 text-white py-3 rounded-lg"
           >
             Book Now

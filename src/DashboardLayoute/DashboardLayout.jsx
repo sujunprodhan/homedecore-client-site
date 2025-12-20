@@ -1,10 +1,20 @@
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaBook, FaCheckCircle, FaCreditCard, FaMoneyBillWave,  FaTools, FaUsers, FaUserShield } from 'react-icons/fa';
+import {
+  FaBook,
+  FaCheckCircle,
+  FaCreditCard,
+  FaMoneyBillWave,
+  FaTools,
+  FaUsers,
+  FaUserShield,
+} from 'react-icons/fa';
+import { MdManageAccounts } from 'react-icons/md';
 
 import useRole from '../Hooks/useRole';
 
 const DashBoardLayout = () => {
-  const { role } = useRole();
+  const [role] = useRole();
+  console.log(role);
 
   return (
     <div className="drawer lg:drawer-open w-11/12 mx-auto">
@@ -33,7 +43,7 @@ const DashBoardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4 text_primary text-xl font-bold text-pink-600">Home Decore</div>
+          <div className="px-4 text_primary text-xl font-bold text-pink-600">Home Decor</div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -100,16 +110,6 @@ const DashBoardLayout = () => {
                 <span className="is-drawer-close:hidden"> Payment History</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/dashboard/admin-dashboard"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Admin Dashboard"
-              >
-                <FaTools size={24} className="text-pink-600" />
-                <span className="is-drawer-close:hidden"> Rider</span>
-              </NavLink>
-            </li>
 
             {/* User Manage */}
             {role === 'admin' && (
@@ -122,8 +122,8 @@ const DashBoardLayout = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage Booking"
                   >
-                    <FaBook size={24} />
-                    <span className="is-drawer-close:hidden"> User Management</span>
+                    <FaBook size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Mange Booking</span>
                   </NavLink>
                 </li>
                 <li>
@@ -136,7 +136,7 @@ const DashBoardLayout = () => {
                     <span className="is-drawer-close:hidden"> User Management</span>
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
                     to="/dashboard/manage-services"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -145,7 +145,7 @@ const DashBoardLayout = () => {
                     <FaTools size={24} className="text-pink-600" />
                     <span className="is-drawer-close:hidden"> User Management</span>
                   </NavLink>
-                </li>
+                </li> */}
                 <li>
                   <NavLink
                     to="/dashboard/assign-decorator"
@@ -153,17 +153,27 @@ const DashBoardLayout = () => {
                     data-tip="Assign Decorator"
                   >
                     <FaUsers size={24} className="text-pink-600" />
-                    <span className="is-drawer-close:hidden"> User Management</span>
+                    <span className="is-drawer-close:hidden"> Assign Decorator</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-decorators"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Decorators"
+                  >
+                    <MdManageAccounts size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Manage Decorators</span>
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     to="/dashboard/revenue"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assign Decorator"
+                    data-tip="Revenue Review"
                   >
                     <FaMoneyBillWave size={24} className="text-pink-600" />
-                    <span className="is-drawer-close:hidden"> User Management</span>
+                    <span className="is-drawer-close:hidden"> Revenue Review</span>
                   </NavLink>
                 </li>
               </>

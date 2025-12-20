@@ -28,6 +28,7 @@ import ManageBookings from '../Admin/ManageBookings';
 import ManageServices from '../Admin/ManageServices';
 import Revenue from '../Admin/Revenue';
 import ErrorPage from '../Pages/ErrorPage';
+import ManageDecorators from '../Admin/ManageBookings';
 
 export const router = createBrowserRouter([
   {
@@ -131,17 +132,18 @@ export const router = createBrowserRouter([
             element: <AssignDecorator></AssignDecorator>,
           },
           {
-            path: 'manage-bookings',
-            element: <ManageBookings></ManageBookings>,
+            path:'manage-decorators',
+            element:<ManageDecorators></ManageDecorators>
           },
           {
             path: 'manage-bookings',
             element: <ManageBookings></ManageBookings>,
           },
           {
-            path: 'manage-serviceS',
+            path: 'manage-services',
             element: <ManageServices></ManageServices>,
           },
+          
           {
             path: 'revenue',
             element: <Revenue />,
