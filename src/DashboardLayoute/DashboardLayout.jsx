@@ -11,6 +11,7 @@ import {
 import { MdManageAccounts } from 'react-icons/md';
 
 import useRole from '../Hooks/useRole';
+import { FcManager } from 'react-icons/fc';
 
 const DashBoardLayout = () => {
   const [role] = useRole();
@@ -123,6 +124,16 @@ const DashBoardLayout = () => {
                     data-tip="Manage Booking"
                   >
                     <FaBook size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Mange Booking</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-services"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Services"
+                  >
+                    <FcManager size={24} className="text-pink-600" />
                     <span className="is-drawer-close:hidden"> Mange Booking</span>
                   </NavLink>
                 </li>
