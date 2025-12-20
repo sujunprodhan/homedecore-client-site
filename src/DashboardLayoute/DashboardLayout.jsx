@@ -8,7 +8,7 @@ import {
   FaUsers,
   FaUserShield,
 } from 'react-icons/fa';
-import { MdManageAccounts } from 'react-icons/md';
+import { MdAdminPanelSettings, MdManageAccounts } from 'react-icons/md';
 
 import useRole from '../Hooks/useRole';
 import { FcManager } from 'react-icons/fc';
@@ -115,8 +115,28 @@ const DashBoardLayout = () => {
             {/* User Manage */}
             {role === 'admin' && (
               <>
-                {/* Approve Riders */}
+                {/* Approve Booking */}
 
+                <li>
+                  <NavLink
+                    to="/dashboard/admin-dashboard"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Admin Dashboard"
+                  >
+                    <FcManager size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Admin Dashboard</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="admin-bookings"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Admin Booking"
+                  >
+                    <FaCheckCircle size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Admin Booking</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/manage-bookings"
@@ -133,8 +153,8 @@ const DashBoardLayout = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage Services"
                   >
-                    <FcManager size={24} className="text-pink-600" />
-                    <span className="is-drawer-close:hidden"> Mange Booking</span>
+                    <MdAdminPanelSettings size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Manage Services</span>
                   </NavLink>
                 </li>
                 <li>
@@ -147,16 +167,6 @@ const DashBoardLayout = () => {
                     <span className="is-drawer-close:hidden"> User Management</span>
                   </NavLink>
                 </li>
-                {/* <li>
-                  <NavLink
-                    to="/dashboard/manage-services"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Manage Services"
-                  >
-                    <FaTools size={24} className="text-pink-600" />
-                    <span className="is-drawer-close:hidden"> User Management</span>
-                  </NavLink>
-                </li> */}
                 <li>
                   <NavLink
                     to="/dashboard/assign-decorator"
@@ -177,7 +187,7 @@ const DashBoardLayout = () => {
                     <span className="is-drawer-close:hidden"> Manage Decorators</span>
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
                     to="/dashboard/revenue"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -186,7 +196,7 @@ const DashBoardLayout = () => {
                     <FaMoneyBillWave size={24} className="text-pink-600" />
                     <span className="is-drawer-close:hidden"> Revenue Review</span>
                   </NavLink>
-                </li>
+                </li> */}
               </>
             )}
           </ul>

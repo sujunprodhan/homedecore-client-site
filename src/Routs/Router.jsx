@@ -132,8 +132,8 @@ export const router = createBrowserRouter([
             element: <AssignDecorator></AssignDecorator>,
           },
           {
-            path:'manage-decorators',
-            element:<ManageDecorators></ManageDecorators>
+            path: 'manage-decorators',
+            element: <ManageDecorators></ManageDecorators>,
           },
           {
             path: 'manage-bookings',
@@ -143,7 +143,7 @@ export const router = createBrowserRouter([
             path: 'manage-services',
             element: <ManageServices></ManageServices>,
           },
-          
+
           {
             path: 'revenue',
             element: <Revenue />,
