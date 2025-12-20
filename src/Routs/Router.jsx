@@ -29,6 +29,7 @@ import ManageServices from '../Admin/ManageServices';
 import Revenue from '../Admin/Revenue';
 import ErrorPage from '../Pages/ErrorPage';
 import ManageDecorators from '../Admin/ManageBookings';
+import DecoratorDashboard from '../Admin/DecoratorDashboard';
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,10 @@ export const router = createBrowserRouter([
           {
             path: 'manage-users',
             element: <ManageUser></ManageUser>,
+          },
+          {
+            path: 'decorator-dashboard',
+            element: <DecoratorDashboard></DecoratorDashboard>,
           },
           {
             path: 'assign-decorator',

@@ -46,19 +46,13 @@ const Payment = () => {
 
   return (
     <>
-      {/* Hot-toast container */}
-      {/* <Toaster position="top-right" reverseOrder={false} /> */}
-
-      <div className="max-w-md mx-auto mt-10 border p-6 rounded-xl shadow-md bg-white">
+      <div className="max-w-md mx-auto mt-10 border-pink-600 border p-6 rounded-xl shadow-md bg-white">
         <h2 className="text-2xl font-bold mb-4 text-pink-600">Payment Details</h2>
         <p>
-          <strong>Service:</strong> {booking.serviceName}
+          <strong className="text-pink-600 text-xl">Service:</strong> <span className='text-xl'>{booking.serviceName}</span>
         </p>
         <p>
-          <strong>Price:</strong> ৳{booking.price}
-        </p>
-        <p>
-          <strong>Booking ID:</strong> {booking._id}
+          <strong className="text-pink-700 text-xl font-semibold">Price:</strong> ৳{booking.price}
         </p>
 
         <button

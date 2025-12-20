@@ -3,12 +3,13 @@ import {
   FaBook,
   FaCheckCircle,
   FaCreditCard,
-  FaMoneyBillWave,
   FaTools,
   FaUsers,
   FaUserShield,
 } from 'react-icons/fa';
 import { MdAdminPanelSettings, MdManageAccounts } from 'react-icons/md';
+import { TbBrandBooking } from 'react-icons/tb';
+import { RiShieldUserFill } from 'react-icons/ri';
 
 import useRole from '../Hooks/useRole';
 import { FcManager } from 'react-icons/fc';
@@ -139,11 +140,21 @@ const DashBoardLayout = () => {
                 </li>
                 <li>
                   <NavLink
+                    to="/dashboard/decorator-dashboard"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Decorator Dashboard"
+                  >
+                    <RiShieldUserFill size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> Decorator Dashboard</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/dashboard/manage-bookings"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage Booking"
                   >
-                    <FaBook size={24} className="text-pink-600" />
+                    <TbBrandBooking size={24} className="text-pink-600" />
                     <span className="is-drawer-close:hidden"> Mange Booking</span>
                   </NavLink>
                 </li>
