@@ -21,13 +21,13 @@ const Revenue = () => {
   useEffect(() => {
     // Fetch bookings
     axios
-      .get('http://localhost:3000/admin/bookings')
+      .get('https://homedecore-server-site.vercel.app/admin/bookings')
       .then((res) => setBookings(res.data))
       .catch((err) => console.log(err));
 
     // Fetch payments
     axios
-      .get('http://localhost:3000/payments')
+      .get('https://homedecore-server-site.vercel.app/payments')
       .then((res) => setPayments(res.data))
       .catch((err) => console.log(err));
   }, []);

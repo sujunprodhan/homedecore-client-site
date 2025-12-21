@@ -9,7 +9,9 @@ const useRole = () => {
     queryKey: ['role', user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:3000/users/${user.email}/role`);
+      const res = await axios.get(
+        `https://homedecore-server-site.vercel.app/users/${user.email}/role`
+      );
       return res.data.role;
     },
   });

@@ -47,7 +47,8 @@ export const router = createBrowserRouter([
       {
         path: 'services',
         element: <Services />,
-        loader: () => fetch('http://localhost:3000/homeservice').then((res) => res.json()),
+        loader: () =>
+          fetch('https://homedecore-server-site.vercel.app/homeservice').then((res) => res.json()),
       },
 
       {
@@ -57,7 +58,8 @@ export const router = createBrowserRouter([
             <ServiceDetails />
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:3000/homeservice/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`https://homedecore-server-site.vercel.app/homeservice/${params.id}`),
       },
 
       { path: 'about', element: <About /> },

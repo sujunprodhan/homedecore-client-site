@@ -9,7 +9,7 @@ const ManageDecorators = () => {
 
   const fetchDecorators = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/admin/decorators');
+      const res = await axios.get('https://homedecore-server-site.vercel.app/admin/decorators');
       setDecorators(res.data);
     } catch (err) {
       console.error('Failed to fetch decorators', err);
@@ -24,7 +24,10 @@ const ManageDecorators = () => {
     if (!name || !email) return;
 
     try {
-      await axios.post('http://localhost:3000/admin/decorators', { name, email });
+      await axios.post('https://homedecore-server-site.vercel.app/admin/decorators', {
+        name,
+        email,
+      });
       Swal.fire('Success', 'Decorator added successfully', 'success');
       setName('');
       setEmail('');
@@ -36,7 +39,9 @@ const ManageDecorators = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:3000/admin/decorators/${id}`, { status });
+      await axios.patch(`https://homedecore-server-site.vercel.app/admin/decorators/${id}`, {
+        status,
+      });
       fetchDecorators();
     } catch (err) {
       console.error(err);
@@ -45,7 +50,7 @@ const ManageDecorators = () => {
 
   const deleteDecorator = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/admin/decorators/${id}`);
+      await axios.delete(`https://homedecore-server-site.vercel.app/admin/decorators/${id}`);
       fetchDecorators();
     } catch (err) {
       console.error(err);

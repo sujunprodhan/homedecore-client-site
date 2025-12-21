@@ -17,7 +17,7 @@ const ManageServices = () => {
   // Fetch all services
   const fetchServices = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/admin/services');
+      const res = await axios.get('https://homedecore-server-site.vercel.app/admin/services');
       setServices(res.data);
     } catch (err) {
       console.error(err);
@@ -44,10 +44,13 @@ const ManageServices = () => {
       }
 
       if (editingId) {
-        await axios.patch(`http://localhost:3000/admin/services/${editingId}`, newService);
+        await axios.patch(
+          `https://homedecore-server-site.vercel.app/admin/services/${editingId}`,
+          newService
+        );
         Swal.fire('Updated', 'Service updated successfully', 'success');
       } else {
-        await axios.post('http://localhost:3000/admin/services', newService);
+        await axios.post('https://homedecore-server-site.vercel.app/admin/services', newService);
         Swal.fire('Added', 'Service added successfully', 'success');
       }
 
@@ -90,7 +93,7 @@ const ManageServices = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/admin/services/${id}`);
+        await axios.delete(`https://homedecore-server-site.vercel.app/admin/services/${id}`);
         Swal.fire('Deleted!', 'Service has been deleted.', 'success');
         fetchServices();
       } catch (err) {

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { getAuth } from 'firebase/auth';
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://homedecore-server-site.vercel.app',
 });
 
 const useAxiosSecure = () => {
@@ -35,7 +35,6 @@ const useAxiosSecure = () => {
 
         if (status === 401 || status === 403) {
           console.warn('Unauthorized/Forbidden. Redirecting to login...');
-          
         }
 
         return Promise.reject(error);

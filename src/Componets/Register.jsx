@@ -17,43 +17,42 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
- const handleRegister = async (data) => {
-   const profileImage = data.image?.[0];
+  const handleRegister = async (data) => {
+    const profileImage = data.image?.[0];
 
-   try {
-     // 1️⃣ Firebase user create
-     const result = await createUser(data.email, data.password);
-     const user = result.user;
+    try {
+      // 1️⃣ Firebase user create
+      const result = await createUser(data.email, data.password);
+      const user = result.user;
 
-     // 2️⃣ Upload image to imgbb
-     const formData = new FormData();
-     formData.append('image', profileImage);
+      // 2️⃣ Upload image to imgbb
+      const formData = new FormData();
+      formData.append('image', profileImage);
 
-     const imageApi = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_API}`;
+      const imageApi = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_API}`;
 
-     const imageRes = await axios.post(imageApi, formData);
-     const photoURL = imageRes.data.data.url;
+      const imageRes = await axios.post(imageApi, formData);
+      const photoURL = imageRes.data.data.url;
 
-     await updateUserProfile({
-       displayName: data.name,
-       photoURL,
-     });
-     const userInfo = {
-       name: data.name,
-       email: data.email,
-       photoURL,
-     };
+      await updateUserProfile({
+        displayName: data.name,
+        photoURL,
+      });
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+        photoURL,
+      };
 
-     await axios.post('http://localhost:3000/users', userInfo);
+      await axios.post('https://homedecore-server-site.vercel.app/users', userInfo);
 
-     toast.success('Registration successful!');
-     navigate('/login');
-   } catch (error) {
-     console.error(error);
-     toast.error(error.message);
-   }
- };
-
+      toast.success('Registration successful!');
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  };
 
   const handleSignInGoogle = async () => {
     try {
@@ -66,7 +65,7 @@ const Register = () => {
         photoURL: user.photoURL,
       };
 
-      await axios.post('http://localhost:3000/users', userInfo);
+      await axios.post('https://homedecore-server-site.vercel.app/users', userInfo);
 
       toast.success('Logged in with Google!');
       navigate('/');
@@ -75,7 +74,6 @@ const Register = () => {
       toast.error(error.message);
     }
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

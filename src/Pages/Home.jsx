@@ -15,7 +15,7 @@ const Home = () => {
   /* ================= FETCH SERVICES ================= */
   useEffect(() => {
     axios
-      .get('http://localhost:3000/homeservice')
+      .get('https://homedecore-server-site.vercel.app/homeservice')
       .then((res) => setServices(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -46,7 +46,6 @@ const Home = () => {
     const words = text.split(' ');
     return words.length > 20 ? words.slice(0, 20).join(' ') + '...' : text;
   };
-
 
   return (
     <div className="w-11/12 mx-auto py-10">

@@ -10,7 +10,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // Total revenue
-    fetch('http://localhost:3000/payments')
+    fetch('https://homedecore-server-site.vercel.app/payments')
       .then((res) => res.json())
       .then((payments) => {
         const revenue = payments.reduce((sum, p) => sum + parseFloat(p.price || 0), 0);
@@ -19,19 +19,19 @@ const AdminDashboard = () => {
       .catch(console.error);
 
     // Total users
-    fetch('http://localhost:3000/users')
+    fetch('https://homedecore-server-site.vercel.app/users')
       .then((res) => res.json())
       .then((users) => setTotalUsers(users.length))
       .catch(console.error);
 
     // Total reviews
-    fetch('http://localhost:3000/reviews')
+    fetch('https://homedecore-server-site.vercel.app/reviews')
       .then((res) => res.json())
       .then((reviews) => setTotalReviews(reviews.length))
       .catch(console.error);
 
     // Service bookings for bar chart
-    fetch('http://localhost:3000/admin/bookings')
+    fetch('https://homedecore-server-site.vercel.app/admin/bookings')
       .then((res) => res.json())
       .then((bookings) => {
         const counts = {};

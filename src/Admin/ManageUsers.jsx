@@ -9,7 +9,7 @@ const ManageUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/users');
+      const res = await axios.get('https://homedecore-server-site.vercel.app/users');
 
       const sortedUsers = res.data.sort((a, b) => {
         if (a.email === user?.email) return -1;
@@ -33,7 +33,7 @@ const ManageUsers = () => {
 
   const makeAdmin = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/users/admin/${id}`);
+      await axios.patch(`https://homedecore-server-site.vercel.app/users/admin/${id}`);
       fetchUsers();
     } catch (error) {
       console.error('Failed to make admin', error);
@@ -54,7 +54,7 @@ const ManageUsers = () => {
 
     if (confirm.isConfirmed) {
       try {
-        await axios.patch(`http://localhost:3000/users/user/${id}`);
+        await axios.patch(`https://homedecore-server-site.vercel.app/users/user/${id}`);
         Swal.fire('Converted!', 'The admin has been converted to a user.', 'success');
         fetchUsers();
       } catch (error) {

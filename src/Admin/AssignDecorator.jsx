@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-
 const AssignDecorator = () => {
   const [bookings, setBookings] = useState([]);
   const [decorators, setDecorators] = useState([]);
@@ -10,7 +9,7 @@ const AssignDecorator = () => {
   // Fetch all paid bookings
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/admin/bookings');
+      const res = await axios.get('https://homedecore-server-site.vercel.app/admin/bookings');
       setBookings(res.data.filter((b) => b.status === 'Paid'));
     } catch (err) {
       console.error(err);
@@ -20,7 +19,7 @@ const AssignDecorator = () => {
   // Fetch all active decorators
   const fetchDecorators = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/admin/decorators');
+      const res = await axios.get('https://homedecore-server-site.vercel.app/admin/decorators');
       setDecorators(res.data.filter((d) => d.status === 'active'));
     } catch (err) {
       console.error(err);
@@ -36,7 +35,7 @@ const AssignDecorator = () => {
     if (!decoratorEmail) return;
 
     try {
-      await axios.patch(`http://localhost:3000/admin/bookings/${bookingId}`, {
+      await axios.patch(`https://homedecore-server-site.vercel.app/admin/bookings/${bookingId}`, {
         assignedDecorator: decoratorEmail,
       });
       Swal.fire('Success', 'Decorator assigned successfully', 'success');

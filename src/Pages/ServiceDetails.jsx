@@ -21,7 +21,7 @@ const ServiceDetails = () => {
   // Fetch reviews
   const fetchReviews = () => {
     if (!service?._id) return;
-    fetch(`http://localhost:3000/reviews?serviceId=${service._id}`)
+    fetch(`https://homedecore-server-site.vercel.app/reviews?serviceId=${service._id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data))
       .catch((err) => console.error(err));
@@ -49,7 +49,7 @@ const ServiceDetails = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/bookings', {
+      const res = await fetch('https://homedecore-server-site.vercel.app/bookings', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(bookingInfo),
@@ -101,7 +101,7 @@ const ServiceDetails = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/reviews', {
+      const res = await fetch('https://homedecore-server-site.vercel.app/reviews', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(reviewData),
@@ -115,7 +115,7 @@ const ServiceDetails = () => {
           confirmButtonColor: '#d63384',
         });
         reset();
-        fetchReviews(); 
+        fetchReviews();
       }
     } catch (error) {
       console.error(error);
