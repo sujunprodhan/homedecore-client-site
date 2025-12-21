@@ -30,7 +30,7 @@ const Payment = () => {
       const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
 
       if (res.data.url) {
-        window.location.href = res.data.url; // Redirect to Stripe checkout
+        window.location.href = res.data.url;
       } else {
      ('Failed to create checkout session. Try again.');
       }

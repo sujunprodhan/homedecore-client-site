@@ -6,7 +6,7 @@ const AssignDecorator = () => {
   const [bookings, setBookings] = useState([]);
   const [decorators, setDecorators] = useState([]);
 
-  // Fetch all paid bookings
+
   const fetchBookings = async () => {
     try {
       const res = await axios.get('https://homedecore-server-site.vercel.app/admin/bookings');
@@ -16,7 +16,7 @@ const AssignDecorator = () => {
     }
   };
 
-  // Fetch all active decorators
+  // Decorators
   const fetchDecorators = async () => {
     try {
       const res = await axios.get('https://homedecore-server-site.vercel.app/admin/decorators');

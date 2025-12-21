@@ -14,7 +14,7 @@ const ManageServices = () => {
   });
   const [editingId, setEditingId] = useState(null);
 
-  // Fetch all services
+  // All services
   const fetchServices = async () => {
     try {
       const res = await axios.get('https://homedecore-server-site.vercel.app/admin/services');

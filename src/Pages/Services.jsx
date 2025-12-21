@@ -3,9 +3,7 @@ import { useLoaderData, Link } from 'react-router';
 
 const Services = () => {
   const bookingServices = useLoaderData();
-  console.log(bookingServices);
   
-
   // filter states
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');

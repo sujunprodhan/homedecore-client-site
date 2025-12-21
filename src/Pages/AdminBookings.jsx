@@ -7,7 +7,6 @@ const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // ---------------- Fetch bookings with polling ----------------
   useEffect(() => {
     const fetchBookings = () => {
       axiosSecure
@@ -17,9 +16,9 @@ const AdminBookings = () => {
     };
 
     fetchBookings();
-    const interval = setInterval(fetchBookings, 5000); // refresh every 5s
+    const interval = setInterval(fetchBookings, 5000); 
 
-    return () => clearInterval(interval); // cleanup
+    return () => clearInterval(interval);
   }, [axiosSecure]);
 
   // ---------------- Update booking status ----------------

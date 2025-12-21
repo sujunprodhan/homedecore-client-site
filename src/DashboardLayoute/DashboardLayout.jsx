@@ -3,13 +3,12 @@ import {
   FaBook,
   FaCheckCircle,
   FaCreditCard,
-  FaTools,
   FaUsers,
   FaUserShield,
 } from 'react-icons/fa';
 import { MdAdminPanelSettings, MdManageAccounts } from 'react-icons/md';
 import { TbBrandBooking } from 'react-icons/tb';
-import { RiShieldUserFill } from 'react-icons/ri';
+import { RiShieldUserFill, RiUserCommunityLine } from 'react-icons/ri';
 
 import useRole from '../Hooks/useRole';
 import { FcManager } from 'react-icons/fc';
@@ -116,7 +115,16 @@ const DashBoardLayout = () => {
             {role === 'admin' && (
               <>
                 {/* Approve Booking */}
-
+                <li>
+                  <NavLink
+                    to="/userprofile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                  >
+                    <RiUserCommunityLine size={24} className="text-pink-600" />
+                    <span className="is-drawer-close:hidden"> My Profile</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/admin-dashboard"

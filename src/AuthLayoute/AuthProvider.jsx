@@ -11,7 +11,17 @@ import {
 } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
 
-const googleProvider = new GoogleAuthProvider()
+// spinner component
+export const AuthSpinner = () => {
+  return (
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white/70 z-50">
+      <span className="loading loading-spinner loading-lg text-pink-600 mb-4"></span>
+      <p className="text-pink-600 font-semibold text-lg">Loading...</p>
+    </div>
+  );
+};
+
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -28,31 +38,35 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-// update User Profile
-const updateUserProfile=(profile)=>{
-  return updateProfile(auth.currentUser, profile)
-}
+
+  // Update User Profile
+  const updateUserProfile = (profile) => {
+    return updateProfile(auth.currentUser, profile);
+  };
 
   // Google Sign In
   const signInGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
+
   // SignOut
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-
-
   // Track auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+        setLoading(false);
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -66,7 +80,11 @@ const updateUserProfile=(profile)=>{
     updateUserProfile,
   };
 
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>
+      {loading ? <AuthSpinner /> : children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

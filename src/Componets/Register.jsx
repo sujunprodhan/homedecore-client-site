@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../Hooks/useAuth';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -21,11 +21,9 @@ const Register = () => {
     const profileImage = data.image?.[0];
 
     try {
-      // 1️⃣ Firebase user create
+
       const result = await createUser(data.email, data.password);
       const user = result.user;
-
-      // 2️⃣ Upload image to imgbb
       const formData = new FormData();
       formData.append('image', profileImage);
 
@@ -178,7 +176,7 @@ const Register = () => {
 
         <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?
-          <span className="text-[#E92C8F] cursor-pointer ml-1">Login</span>
+          <Link to='/login' className="text-[#E92C8F] cursor-pointer ml-1">Login</Link>
         </p>
       </div>
     </div>

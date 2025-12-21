@@ -40,15 +40,14 @@ const ManageUsers = () => {
     }
   };
 
-  // Convert admin to user with SweetAlert confirmation
   const convertToUser = async (id) => {
     const confirm = await Swal.fire({
       title: 'Are you sure?',
       text: 'This admin will be converted to a user!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#ec4899', // pink
-      cancelButtonColor: '#6b7280', // gray
+      confirmButtonColor: '#ec4899', 
+      cancelButtonColor: '#6b7280',
       confirmButtonText: 'Yes, convert!',
     });
 

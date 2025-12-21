@@ -12,7 +12,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const servicesPerPage = 3;
 
-  /* ================= FETCH SERVICES ================= */
   useEffect(() => {
     axios
       .get('https://homedecore-server-site.vercel.app/homeservice')
@@ -20,7 +19,6 @@ const Home = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  /* ================= FETCH REVIEWS FROM PUBLIC ================= */
   useEffect(() => {
     fetch('/review.json')
       .then((res) => res.json())
@@ -33,8 +31,7 @@ const Home = () => {
   const indexOfFirstService = indexOfLastService - servicesPerPage;
   const currentServices = services.slice(indexOfFirstService, indexOfLastService);
   const totalPages = Math.ceil(services.length / servicesPerPage);
-
-  /* ================= HELPERS ================= */
+  
   const shortenDescription = (text) => {
     if (!text) return '';
     const words = text.split(' ');

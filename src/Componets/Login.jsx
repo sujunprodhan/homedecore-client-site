@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import useAuth from '../Hooks/useAuth';
 import { GoogleAuthProvider } from 'firebase/auth';
@@ -120,7 +120,7 @@ const Login = () => {
         {/* Footer */}
         <p className="text-center text-sm text-gray-600 mt-6">
           Don’t have an account?
-          <span className="text-[#E92C8F] cursor-pointer ml-1">Sign up</span>
+          <Link to='/register' className="text-[#E92C8F] cursor-pointer ml-1">Sign up</Link>
         </p>
       </div>
     </div>

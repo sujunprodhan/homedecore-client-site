@@ -12,7 +12,7 @@ const DecoratorDashboard = () => {
   const [earnings, setEarnings] = useState(0);
   const today = new Date().toISOString().split('T')[0]; 
 
-  // Fetch assigned projects
+  // Assigned projects
   useEffect(() => {
     if (!decoratorEmail) return;
 
@@ -28,7 +28,7 @@ const DecoratorDashboard = () => {
     fetchProjects();
   }, [decoratorEmail, axiosSecure]);
 
-  // Fetch today's schedule
+  // Today's schedule
   useEffect(() => {
     if (!decoratorEmail) return;
 
@@ -46,7 +46,7 @@ const DecoratorDashboard = () => {
     fetchSchedule();
   }, [decoratorEmail, today, axiosSecure]);
 
-  // Fetch earnings
+  // Earnings
   useEffect(() => {
     if (!decoratorEmail) return;
 

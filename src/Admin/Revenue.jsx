@@ -19,13 +19,10 @@ const Revenue = () => {
   const [payments, setPayments] = useState([]);
 
   useEffect(() => {
-    // Fetch bookings
     axios
       .get('https://homedecore-server-site.vercel.app/admin/bookings')
       .then((res) => setBookings(res.data))
       .catch((err) => console.log(err));
-
-    // Fetch payments
     axios
       .get('https://homedecore-server-site.vercel.app/payments')
       .then((res) => setPayments(res.data))
@@ -34,8 +31,6 @@ const Revenue = () => {
 
   // Revenue calculation
   const totalRevenue = payments.reduce((sum, p) => sum + p.amount, 0);
-
-  // Booking count per service (histogram)
   const serviceCount = {};
   bookings.forEach((b) => {
     const name = b.serviceName || 'Unknown';

@@ -236,7 +236,6 @@ const ServiceDetails = () => {
       )}
 
       {/* Reviews Section */}
-      {/* Reviews List */}
       <h2 className="text-2xl font-bold text-gray-700">Reviews ({reviews.length})</h2>
       <div className="space-y-4">
         {reviews.length === 0 && <p className="text-gray-500">No reviews yet.</p>}

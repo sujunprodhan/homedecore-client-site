@@ -84,8 +84,6 @@ const PaymentSuccess = () => {
 
     doc.save(`receipt-${payment.transactionId || 'unknown'}.pdf`);
   };
-  /* ================================================= */
-
   // ------------------ Loading State ------------------
   if (loading) {
     return (

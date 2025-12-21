@@ -21,7 +21,6 @@ const MyBooking = () => {
     enabled: !!user?.email,
   });
 
-  // ❌ Cancel
   const handleCancel = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -43,7 +42,6 @@ const MyBooking = () => {
     });
   };
 
-  // ✏️ Update (Date + Location)
   const handleUpdate = (booking) => {
     Swal.fire({
       title: 'Update Booking',
@@ -135,7 +133,7 @@ const MyBooking = () => {
                     )}
                   </td>
 
-                  {/* ✅ Sticky Action */}
+                  {/* Sticky Action */}
                   <td className="px-6 py-4 sticky right-0 bg-white z-10">
                     {booking.status !== 'Paid' && (
                       <div className="flex gap-2">

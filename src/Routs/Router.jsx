@@ -30,6 +30,7 @@ import Revenue from '../Admin/Revenue';
 import ErrorPage from '../Pages/ErrorPage';
 import ManageDecorators from '../Admin/ManageBookings';
 import DecoratorDashboard from '../Admin/DecoratorDashboard';
+import UserProfile from '../DashboardLayoute/UserProfile';
 
 export const router = createBrowserRouter([
   {
@@ -70,9 +71,18 @@ export const router = createBrowserRouter([
         element: <Covarage />,
         loader: () => fetch('/service.json').then((res) => res.json()),
       },
+      {
+        path: 'userprofile',
+        element: <UserProfile></UserProfile>,
+      },
 
-      { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
+      { path: 'login', 
+        element: <Login /> 
+      },
+
+      { path: 'register', 
+        element: <Register /> 
+      },
 
       // ================= DASHBOARD =================
       {

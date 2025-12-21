@@ -49,8 +49,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      {/* Copyright */}
       <div className="text-center py-4 bg-[#d92381] text-sm">
         © {new Date().getFullYear()} Your Business Name. All Rights Reserved.
       </div>
