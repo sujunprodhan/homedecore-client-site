@@ -3,10 +3,12 @@ import { useLoaderData, Link } from 'react-router';
 
 const Services = () => {
   const bookingServices = useLoaderData();
+  console.log(bookingServices);
+  
 
   // filter states
   const [search, setSearch] = useState('');
-  const [type, setType] = useState('');
+  const [category, setCategory] = useState('');
   const [min, setMin] = useState('');
   const [max, setMax] = useState('');
 
@@ -19,21 +21,21 @@ const Services = () => {
 
   // filter logic
   const filteredServices = bookingServices.filter((service) => {
-    // make sure min and max are numbers
-    const minBudget = parseFloat(min) || 0;
-    const maxBudget = parseFloat(max) || Number.MAX_VALUE;
+    const minBudget = min ? parseFloat(min) : 0;
+    const maxBudget = max ? parseFloat(max) : Number.MAX_VALUE;
+    const price = parseFloat(service.price) || 0;
 
     return (
       service.name.toLowerCase().includes(search.toLowerCase()) &&
-      (type ? service.serviceType === type : true) &&
-      service.price >= minBudget &&
-      service.price <= maxBudget
+      (category ? service.serviceType === category : true) &&
+      price >= minBudget &&
+      price <= maxBudget
     );
   });
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      {/* 🔹 Page Header */}
+      {/* Page Header */}
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-pink-600 mb-2">Our Decoration Services</h2>
         <p className="text-gray-600">
@@ -42,7 +44,7 @@ const Services = () => {
         </p>
       </div>
 
-      {/* 🔹 Filter Section */}
+      {/* Filter Section */}
       <div className="grid md:grid-cols-4 gap-4 mb-10">
         <input
           type="text"
@@ -53,9 +55,9 @@ const Services = () => {
 
         <select
           className="border border-pink-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-          onChange={(e) => setType(e.target.value)}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="">All Service Types</option>
+          <option value="">All Categories</option>
           <option value="Consultation">Consultation</option>
           <option value="Home Decor">Home Decor</option>
           <option value="Event Decor">Event Decor</option>
@@ -76,7 +78,7 @@ const Services = () => {
         />
       </div>
 
-      {/* 🔹 Services Grid */}
+      {/* Services Grid */}
       <div className="grid md:grid-cols-3 gap-6">
         {filteredServices.length === 0 && (
           <p className="text-center col-span-3 text-gray-500">No services found</p>
@@ -111,7 +113,7 @@ const Services = () => {
         ))}
       </div>
 
-      {/* 🔹 Add a Design Section */}
+      {/* Add a Design Section */}
       <section className="mt-16 py-10 bg-pink-50 rounded-lg">
         <h3 className="text-2xl font-bold text-center text-pink-600 mb-4">
           Why Choose Our Services?

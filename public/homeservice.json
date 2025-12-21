@@ -61,5 +61,82 @@
       "Room-by-room guidance",
       "Budget-friendly decor solutions"
     ]
+  },
+  {
+    "name": "Wedding Event Decor Package",
+    "serviceType": "Event Decor",
+    "category": "Event Decor",
+    "price": 15000,
+    "duration": "Full Day",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/vxPz7nFM/porject-image-12.jpg",
+    "description": "Beautiful wedding decor package including floral arrangements, stage design, and table setup.",
+    "features": ["Floral stage setup", "Table & seating arrangements", "Theme-based decoration"]
+  },
+  {
+    "name": "Corporate Event Styling",
+    "serviceType": "Event Decor",
+    "category": "Event Decor",
+    "price": 10000,
+    "duration": "Half Day",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/HcHZQSC/porject-image-6.jpg",
+    "description": "Professional styling for corporate events, including branding, lighting, and seating arrangement.",
+    "features": ["Branding decoration", "Lighting setup", "Seating & stage arrangement"]
+  },
+  {
+    "name": "Birthday Party Decor",
+    "serviceType": "Event Decor",
+    "category": "Event Decor",
+    "price": 5000,
+    "duration": "4 Hours",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/9Hq7K2pr/porject-image-7.jpg",
+    "description": "Fun and vibrant birthday party decoration for kids and adults, with balloons, banners, and themed decor.",
+    "features": ["Themed decoration", "Balloon & banner setup", "Table & cake decoration"]
+  },
+  {
+    "name": "Home Office Setup Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 2200,
+    "duration": "60 Minutes",
+    "mode": "Online / On-site",
+    "image": "https://i.ibb.co.com/TMPRYcgT/porject-image-11.jpg",
+    "description": "Get expert advice to create a productive and stylish home office environment.",
+    "features": ["Desk & chair placement", "Lighting guidance", "Storage solutions"]
+  },
+  {
+    "name": "Outdoor Event Styling",
+    "serviceType": "Event Decor",
+    "category": "Event Decor",
+    "price": 12000,
+    "duration": "Full Day",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/YTK9cMWF/porject-image-8.jpg",
+    "description": "Decoration and styling for outdoor events, including garden parties, launches, and anniversaries.",
+    "features": ["Tent & stage setup", "Lighting & floral decor", "Themed arrangement"]
+  },
+  {
+    "name": "Eco-friendly Interior Consultation",
+    "serviceType": "Consultation",
+    "category": "Home Decor",
+    "price": 3500,
+    "duration": "90 Minutes",
+    "mode": "Online / On-site",
+    "image": "https://i.ibb.co.com/jvFMb4pw/porject-image-9.jpg",
+    "description": "Consultation focusing on sustainable and eco-friendly decor solutions for your home.",
+    "features": ["Eco-friendly materials", "Energy-saving tips", "Sustainable design guidance"]
+  },
+  {
+    "name": "Luxury Living Room Decor",
+    "serviceType": "Home Decor",
+    "category": "Home Decor",
+    "price": 7000,
+    "duration": "2 Hours",
+    "mode": "On-site",
+    "image": "https://i.ibb.co.com/d0rqHLZd/porject-image-15.png",
+    "description": "Luxury styling for living rooms with premium furniture, lighting, and accessories.",
+    "features": ["Premium furniture selection", "Lighting design", "Accessory styling"]
   }
 ]

@@ -54,7 +54,7 @@ const ManageDecorators = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold text-pink-600 mb-4">Manage Decorators</h2>
+      <h2 className="text-3xl font-bold text-pink-600 mb-4">Manage Booking</h2>
 
       {/* Add Decorator */}
       <div className="mb-6 flex gap-3">
