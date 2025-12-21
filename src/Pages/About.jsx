@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaUsers, FaTools, FaBook, FaHandshake } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import BrandLogo from './Brandlogo';
 
 
 const About = () => {
@@ -54,7 +55,7 @@ const About = () => {
       {/* Brand Marquee */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-6">Our Partners</h2>
-        
+        <BrandLogo></BrandLogo>
       </div>
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-pink-600 mb-6 text-center">How It Works</h2>
