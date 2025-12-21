@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import useAuth from '../Hooks/useAuth';
-import ContactImg from '../assets/contactimage.jpg'
+import ContactImg from '../assets/contactimage.jpg';
 
 const Contact = () => {
   const { user } = useAuth();
+  
 
   const {
     register,
@@ -17,14 +18,13 @@ const Contact = () => {
 
   useEffect(() => {
     if (user) {
-      setValue('name', user.displayName || '');
-      setValue('email', user.email || '');
+      setValue('name', );
+      setValue('email',);
     }
-  }, [user, setValue]);
+  }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
-    alert('Message sent successfully!');
+    alert('Message sent successfully!', data);
     reset({
       name: user?.displayName || '',
       email: user?.email || '',
@@ -60,7 +60,6 @@ const Contact = () => {
               type="text"
               placeholder="Your Name"
               {...register('name', { required: true })}
-              readOnly={!!user}
               className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500 ${
                 user && 'bg-gray-100 cursor-not-allowed'
               }`}
@@ -72,7 +71,6 @@ const Contact = () => {
               type="email"
               placeholder="Your Email"
               {...register('email', { required: true })}
-              readOnly={!!user}
               className={`border px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500 ${
                 user && 'bg-gray-100 cursor-not-allowed'
               }`}
