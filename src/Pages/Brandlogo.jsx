@@ -22,7 +22,7 @@ const BrandLogo = () => {
             <img src={brand5} alt="" />
             <img src={brand6} alt="" />
             <img src={brand7} alt="" />
-            <img src={brand8} alt="" />
+            <img src={brand} alt="" />
           </div>
         </marquee>
       </div>

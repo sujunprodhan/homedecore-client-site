@@ -6,7 +6,7 @@ import {
   FaUsers,
   FaUserShield,
 } from 'react-icons/fa';
-import { MdAdminPanelSettings, MdManageAccounts } from 'react-icons/md';
+import { MdAdminPanelSettings } from 'react-icons/md';
 import { TbBrandBooking } from 'react-icons/tb';
 import { RiShieldUserFill, RiUserCommunityLine } from 'react-icons/ri';
 
@@ -15,6 +15,8 @@ import { FcManager } from 'react-icons/fc';
 
 const DashBoardLayout = () => {
   const [role] = useRole();
+
+console.log('check role', role);
 
   return (
     <div className="drawer lg:drawer-open w-11/12 mx-auto">
@@ -113,11 +115,12 @@ const DashBoardLayout = () => {
 
             {/* User Manage */}
             {role === 'admin' && (
+
               <>
                 {/* Approve Booking */}
                 <li>
                   <NavLink
-                    to="/userprofile"
+                    to="/dashboard/userprofile"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Profile"
                   >

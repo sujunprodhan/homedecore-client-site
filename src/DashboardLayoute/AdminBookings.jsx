@@ -4,6 +4,7 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const AdminBookings = () => {
   const axiosSecure = useAxiosSecure();
+console.log('hello');
 
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ['admin-bookings'],

@@ -71,20 +71,11 @@ export const router = createBrowserRouter([
         element: <Covarage />,
         loader: () => fetch('/service.json').then((res) => res.json()),
       },
-      {
-        path: 'userprofile',
-        element: <UserProfile></UserProfile>,
-      },
 
-      { path: 'login', 
-        element: <Login /> 
-      },
+      { path: 'login', element: <Login /> },
 
-      { path: 'register', 
-        element: <Register /> 
-      },
+      { path: 'register', element: <Register /> },
 
-      // ================= DASHBOARD =================
       {
         path: 'dashboard',
         element: (
@@ -115,7 +106,7 @@ export const router = createBrowserRouter([
 
           {
             path: 'payment-cancel',
-            element: <PyamentCancel />,
+            element: <PyamentCancel/>,
           },
 
           {
@@ -131,6 +122,10 @@ export const router = createBrowserRouter([
                 <AdminBookings />
               </AdminRoute>
             ),
+          },
+          {
+            path: 'userprofile',
+            element: <UserProfile></UserProfile>,
           },
           {
             path: 'admin-dashboard',

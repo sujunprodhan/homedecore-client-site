@@ -18,7 +18,7 @@ const AdminBookings = () => {
     fetchBookings();
     const interval = setInterval(fetchBookings, 5000); 
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // cleanup
   }, [axiosSecure]);
 
   // ---------------- Update booking status ----------------
