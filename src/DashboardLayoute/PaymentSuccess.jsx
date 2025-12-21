@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
   const [message, setMessage] = useState('');
   const sessionId = searchParams.get('session_id');
   const axiosSecure = useAxiosSecure();
-  const { loading } = useAuth(); // Auth loading
+  const { loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

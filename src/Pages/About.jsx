@@ -1,14 +1,8 @@
 import React from 'react';
 import { FaUsers, FaTools, FaBook, FaHandshake } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import BrandLogo from './Brandlogo';
 
-const brands = [
-  '/images/brand1.png',
-  '/images/brand2.png',
-  '/images/brand3.png',
-  '/images/brand4.png',
-  '/images/brand5.png',
-];
 
 const About = () => {
   return (
@@ -61,19 +55,8 @@ const About = () => {
       {/* Brand Marquee */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-6">Our Partners</h2>
-        <div className="overflow-x-auto whitespace-nowrap py-4 bg-gray-50 rounded-xl shadow-inner">
-          {brands.map((logo, idx) => (
-            <img
-              key={idx}
-              src={logo}
-              alt={`Brand ${idx + 1}`}
-              className="inline-block h-20 mx-6 object-contain animate-marquee"
-            />
-          ))}
-        </div>
+        <BrandLogo></BrandLogo>
       </div>
-
-      {/* How We Work / Services Explanation */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-pink-600 mb-6 text-center">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -113,11 +96,6 @@ const About = () => {
             <p className="text-gray-500 text-sm">Sit back while our decorators handle the work.</p>
           </motion.div>
         </div>
-      </div>
-
-      {/* Footer Note */}
-      <div className="text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Home Decor. All rights reserved.
       </div>
     </div>
   );
